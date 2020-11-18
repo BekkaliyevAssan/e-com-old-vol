@@ -1,0 +1,32 @@
+<div class="sc">
+    <div class="sc_header" (keydown)="keyDownFunction($event)">
+            <select name="category" [(ngModel)]="subModel.category" (change)="($event.target.value)">
+                <option value="" disabled selected>Выбрать категорию</option>
+                <option [value]="c._id" *ngFor="let c of categories">
+                    {{c.name}}
+                </option>
+            </select>
+        <input type="text" name="name" placeholder="Название подкатегории" [(ngModel)]="subModel.name">
+        <div *ngIf="!editable">
+            <div class="cs_header__button" (click)="onCreateSub()">Добавить подкатегорию</div>
+        </div>
+        <div *ngIf="editable">
+            <div class="cs_header__button" (click)="onUpdate()">Редактировать подкатегорию</div>
+        </div>
+    </div>
+    <div class="cs_list">
+        <div *ngFor="let subcat of subcategories">
+            <div class="category_item" *ngIf="subcat">
+                <div>
+                    {{subcat}}
+                </div>
+                <div class="category_item__item" (click)="onEdit(subcat)">
+                    <i class="material-icons">edit</i>
+                </div>
+                <div class="category_item__item" (click)="onDeleteSubCategory(subcat)">
+                    <i class="material-icons">delete</i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

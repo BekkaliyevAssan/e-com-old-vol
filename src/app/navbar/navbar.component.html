@@ -1,0 +1,28 @@
+<div [ngClass]="focused ? 'focusedNav' : 'navbar'">
+    <div class="navbar_item" routerLink="/home" routerLinkActive="active">
+      <i class="material-icons">home</i>
+      <div class="navbar_item__label" *ngIf="lang == 'rus'">Главная</div>
+      <div class="navbar_item__label" *ngIf="lang == 'kaz'">Бас бет</div>
+    </div>
+    <div class="navbar_item" routerLink="/category" routerLinkActive="active">
+      <i class="material-icons">category</i>
+      <div class="navbar_item__label" *ngIf="lang == 'rus'">Каталог</div>
+      <div class="navbar_item__label" *ngIf="lang == 'kaz'">Каталог</div>
+
+    </div>
+    <div class="navbar_item" routerLink="/search" routerLinkActive="active">
+      <i class="material-icons">search</i>
+      <div class="navbar_item__label" *ngIf="lang == 'rus'">Поиск</div>
+      <div class="navbar_item__label" *ngIf="lang == 'kaz'">Іздеу</div>
+
+    </div>
+    <div class="navbar_item" routerLink="/cart" routerLinkActive="active">
+      <div *ngIf="badge.length > 0">
+        <div class="badge">{{badge.length}}</div>
+      </div>
+      <i class="material-icons">shopping_cart</i>
+      <div class="navbar_item__label" *ngIf="lang == 'rus'">Корзина</div>
+      <div class="navbar_item__label" *ngIf="lang == 'kaz'">Себет</div>
+
+    </div>
+</div>

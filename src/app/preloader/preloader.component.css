@@ -1,0 +1,32 @@
+.preloader {
+    height: 100vh;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+
+
+    
+}
+
+.icon {
+    animation-name: preloader;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes preloader {
+    0%   {opacity: 0;}
+    25%  {opacity: 1;}
+    50%  {opacity: 0;}
+    75%  {opacity: 1;}
+    100% {opacity: 0;}
+  }
+
+html, body {margin: 0; height: 100%; overflow: hidden}

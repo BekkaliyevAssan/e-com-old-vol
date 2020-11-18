@@ -1,0 +1,6 @@
+<div class="preloader">
+    <div class="icon">
+        <app-svg *ngIf="cat == 'pharm'" [name]="'preloaderPharm'"></app-svg>
+        <app-svg *ngIf="cat != 'pharm'" [name]="'preloaderMarket'"></app-svg>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="slider" *ngIf="!mobile">
+
+    <owl-carousel-o [options]="customOptions" *ngIf="cat == 'pharm'">
+        <ng-template carouselSlide>
+            <img src="../assets/img/deskPharm1.jpg" alt="">
+        </ng-template>
+        <ng-template carouselSlide>
+            <img src="../assets/img/deskPharm.jpg" alt="">
+        </ng-template>
+    </owl-carousel-o>
+
+    <owl-carousel-o [options]="customOptions" *ngIf="cat != 'pharm'">
+        <ng-template carouselSlide>
+            <img src="../assets/img/deskMagaz.jpg" alt="">
+        </ng-template>
+        <ng-template carouselSlide>
+            <img src="../assets/img/deskMagaz1.jpg" alt="">
+        </ng-template>
+        <ng-template carouselSlide>
+            <img src="../assets/img/deskMagaz2.jpg" alt="">
+        </ng-template>
+    </owl-carousel-o>
+</div>
+
+<div class="mobile-slider" *ngIf="mobile">
+
+    <owl-carousel-o [options]="customOptions" *ngIf="cat == 'pharm'">
+        <ng-template carouselSlide>
+            <img src="../assets/img/mobilePharm.jpg" alt="">
+        </ng-template>
+        <ng-template carouselSlide>
+            <img src="../assets/img/mobilePharm1.jpg" alt="">
+        </ng-template>
+    </owl-carousel-o>
+
+    <owl-carousel-o [options]="customOptions" *ngIf="cat != 'pharm'">
+        <ng-template carouselSlide>
+            <img src="../assets/img/mobileMagaz.jpg" alt="">
+        </ng-template>
+        <ng-template carouselSlide>
+            <img src="../assets/img/mobileMagaz1.jpg" alt="">
+        </ng-template>
+        <ng-template carouselSlide>
+            <img src="../assets/img/mobileMagaz2.jpg" alt="">
+        </ng-template>
+    </owl-carousel-o>
+</div>

@@ -1,0 +1,156 @@
+<div *ngIf="mobile">
+    <app-header [inner]="true"></app-header>
+
+    <div class="see-all">
+        <div class="mobile_title" [@fadeIn]>{{ subcategory }}</div>
+
+        <div class="subcategory">
+            <div class="subtitle-wrapper">
+                <div class="subtitle">Найдено товаров: <span [ngStyle]="{'opacity': (dataLoaded) ? '1' : '0'}">{{products.length}}</span></div>
+            </div>
+
+            <div class="age-badge" *ngIf="subcategory == 'Алкоголь' || subcategory == 'Табачные изделия'"
+                [ngStyle]="{'margin-top': '0.5rem'}">
+                <span>
+                    Данная страница не является рекламной и предназначена только для лиц старше 21 года.
+                </span>
+                <span [ngStyle]="{'font-size': '14px'}">
+                    Употребление алкоголя вредит вашему здоровью. Доставка возможно только с 12:00 до 21:00. При
+                    доставке мы запросим документ, подтверждающий ваш возраст.
+                </span>
+            </div>
+
+            <div class="toggler" (click)="toggledDown = !toggledDown" (click)="getHeight()">
+                <div class="mobile-subtitle" *ngIf="activeSup != ''">{{activeSup}}</div>
+                <div class="mobile-subtitle" *ngIf="activeSup == ''">Вся продукция</div>
+                <div class="right">
+                    Фильтр
+                    <span class="material-icons"
+                        [ngStyle]="{'color' : (toggledDown) ? '#FFD800' : 'rgb(197, 197, 197)'}">
+                        filter_alt
+                    </span>
+                </div>
+            </div>
+            <div class="mobile-supcat_wrapper" [ngStyle]="{'height' : (toggledDown) ? viewHeight+'px' : '0px'}">
+                <div class="supcat" #list>
+                    <div *ngFor="let u of unique">
+                        <div class="mobile-supcat_item" (click)="filterBy(u)" *ngIf="u != undefined"
+                            [ngClass]="{'active': u == activeSup}">
+                            {{u}}
+                            <span class="material-icons" *ngIf="u == activeSup">
+                                clear
+                            </span>
+                        </div>
+                    </div>
+                    <i class="material-icons" (click)="toggledDown = false">keyboard_arrow_up</i>
+                </div>
+            </div>
+
+            <div class="see-all_list" *ngIf="dataLoaded">
+                <div
+                    *ngFor="let p of products | paginate: { id: 'listing_pagination', itemsPerPage: 20, currentPage: page, totalItems: totalRecords }">
+                    <div class="see-all_list__item">
+                        <app-product-card [product]="p" [@fadeIn] [type]="'def'"></app-product-card>
+                    </div>
+                </div>
+                
+                <div class="pagination-controll">
+                    
+                    <pagination-controls id="listing_pagination" (pageChange)="page = $event"
+                    (pageChange)="pageChanged($event)" (pageBoundsCorrection)="page = $event" maxSize="9"
+                    directionLinks="true" autoHide="true" responsive="true" previousLabel="Пред." nextLabel="След."
+                    screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                    screenReaderCurrentLabel="You're on page">
+                </pagination-controls>
+            </div>
+        </div>
+        <div *ngIf="!dataLoaded">
+            <div *ngFor="let i of ['','','','','']">
+                <div class="skeleton_item">
+                    <div class="ski_img"></div>
+                    <div class="ski_name">
+                        <div [ngStyle]="{'width': '70%'}"></div>
+                        <div></div>
+                    </div>
+                    <div class="ski_price"></div>
+                    <div class="ski_button">
+                        <div></div>
+                        <div [ngStyle]="{'background': '#acacac'}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+
+<!-- ------------------------------------------------- -->
+
+<div *ngIf="!mobile && dataLoaded" class="see-all_wrapper">
+    <div class="desk_see-all">
+        <div class="desk_title" [@fadeIn]>{{ title }}</div>
+
+        <div class="desk_subcategory">
+            <div class="subtitle-wrapper">
+                <div class="sww">
+                    <div class="subtitle" [@fadeIn]>{{subcategory}}</div>
+                    <div class="subtitle" *ngIf="activeSup" [@fadeIn]>/ {{activeSup}}</div>
+                </div>
+
+                <div class="desk_subtitle_counter" [@fadeIn]>Нашлось результатов: {{products.length}}</div>
+            </div>
+            <div class="content-wrapper">
+                <div class="desk_supcat__wrapper">
+
+                    <div class="subtitle"
+                        [ngStyle]="{'padding-bottom': '1rem', 'font-weight': 'bold', 'color': '#000'}">Фильтр</div>
+                    <div class="desk_supcat">
+                        <div *ngFor="let u of unique">
+                            <div class="supcat_item" (click)="filterBy(u)" *ngIf="u != undefined"
+                                [ngClass]="{'active': u == activeSup}">
+                                {{u}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+
+                    <div class="age-badge" *ngIf="subcategory == 'Алкоголь' || subcategory == 'Табачные изделия'">
+                        <span>
+                            Данная страница не является рекламной и предназначена только для лиц старше 21 года.
+                        </span>
+                        <span [ngStyle]="{'font-size': '14px'}">
+                            Употребление алкоголя вредит вашему здоровью. Доставка возможно только с 12:00 до 21:00. При
+                            доставке мы запросим документ, подтверждающий ваш возраст.
+                        </span>
+                    </div>
+                    <div class="desk_see-all_list">
+
+                        <div
+                            *ngFor="let p of products | paginate: { id: 'listing_pagination', itemsPerPage: 21, currentPage: page, totalItems: totalRecords }">
+                            <div class="see-all_list__item">
+                                <app-product-card [product]="p" [@fadeIn] [type]="'def'"></app-product-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination-controll">
+
+                <pagination-controls id="listing_pagination" (pageChange)="page = $event"
+                    (pageChange)="pageChanged($event)" (pageBoundsCorrection)="page = $event" maxSize="9"
+                    directionLinks="true" autoHide="true" responsive="true" previousLabel="Пред." nextLabel="След."
+                    screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                    screenReaderCurrentLabel="You're on page">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="cd_cs" *ngIf="!dataLoaded && !mobile">
+    <app-preloader></app-preloader>
+</div>

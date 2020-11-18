@@ -1,0 +1,175 @@
+<div class="orders">
+    <!-- {{statusItems.call}} -->
+    <!-- {{statusItems.inProg}} -->
+    <!-- {{statusItems.success}} -->
+    <!-- {{statusItems.canceled}} -->
+    <div *ngFor="let o of orders">
+        <div class="order_item__wrapper">
+            <div class="orders_item" [ngStyle]="{'border':o.status == 'call' ? 'solid 3px #FFB800' : 'solid 1px #696969 ' }">
+                <div class="orders_item__header">
+                    <div class="personal_info">
+                        <div class="personal_info__top">
+                        <p>
+                            <span>Дата и время заказа:</span>
+                            <!-- <span class="material-icons">
+                                schedule
+                            </span> -->
+                            {{o.orderDate}} || {{o.orderTime}}
+                        </p>
+                    <div class="p">
+                        <span>Имя заказчика:</span>
+                        <!-- <span class="material-icons">
+                            face
+                        </span> -->
+                            {{o.name}}
+                            <div *ngIf="!o.name">Безымянный пользователь</div>
+                    </div>
+
+                    
+
+                    <p>
+                        <span>Номер заказчика:</span>
+                        <!-- <span class="material-icons">
+                            call
+                        </span> -->
+                        {{o.phone}}
+                    </p>
+                </div>
+                <div class="personal_info__bottom">
+                    <p>
+                        <span>Адрес доставки:</span>
+                        <!-- <span class="material-icons">
+                            location_on
+                        </span> -->
+                        {{o.address}}
+                    </p>
+                    <p>
+                        <span>Номер квартиры:</span>
+                        <!-- <span class="material-icons">
+                            sensor_door
+                        </span> -->
+                        {{o.apartment || '-'}}
+                    </p>
+
+                    <p>
+                        <span>Код двери:</span>
+                        <!-- <span class="material-icons">
+                            lock_open
+                        </span> -->
+                        {{o.doorCode || '-'}}
+                    </p>
+                    <p>
+                        <span>Этаж:</span>
+                        <!-- <span class="material-icons">
+                            stairs
+                        </span> -->
+                        {{o.floor || '-'}}
+                    </p>
+                </div>
+                <div class="personal_comment">
+                    <p>
+                        <span>Комментарий:</span>
+                        <!-- <span class="material-icons">
+                            stairs
+                        </span> -->
+                        {{o.comments || '-'}}
+                    </p>
+                </div>
+                <div class="personal_comment" [ngStyle]="{'border-top': '1px solid rgb(202, 202, 202)', 'padding-bottom': '0'}">
+                    <p>
+                        <span>Тип заказа:</span>
+                        <span *ngIf="o.deliveryType == 'delivery'" class="personal_comment-delivery-type">Доставка</span>
+                        <span *ngIf="o.deliveryType == 'self'" class="personal_comment-delivery-type">Самовывоз</span>
+                    </p>
+                </div>
+                </div>
+                <div class="personal-calc">
+                    <p *ngIf="!o.delivery" class="total">
+                        <span class="material-icons">
+                            monetization_on
+                        </span>
+                        {{o.total}} ₸ 
+                    </p>
+                    <p *ngIf="o.delivery" class="total">
+                        <span class="material-icons">
+                            monetization_on
+                        </span>
+                        {{o.total}} ₸ + {{o.delivery}}(доставка)
+                        <br>
+                        = {{o.total + o.delivery}} ₸ 
+
+                    </p>
+                    
+                    <div class="orders_item__header___status">
+                        <div [className]="o.status">
+                            <div *ngIf="o.status == 'call'">
+                                Ожидает звонка
+                            </div>
+                            <div *ngIf="o.status == 'inProg'">
+                                Доставляется
+                            </div>
+                            <div *ngIf="o.status == 'success'">
+                                Доставлено
+                            </div>
+                            <div *ngIf="o.status == 'canceled'">
+                                Отменено
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="orders_item__body">
+                    <div class="oreders_item__body___label">
+                        <p>Наименование</p>
+                        <p>Цена</p>
+                        <p>Кол-во</p>
+                        <p>Сумма</p>
+                    </div>
+                    <div *ngFor="let p of o.products">
+                        <div class="orders_item__body___item">
+                            <div class="orders_item__body___item_title">
+                                <p>
+                                    {{p.name}}
+                                </p>
+                                <span>
+                                    {{p.subcategory}}
+                                </span>
+                            </div>
+                            <div class="orders_item__body___item_title">
+                                {{p.price}} ₸
+                            </div>
+                            <div class="orders_item__body___item_title">
+                                {{p.quantity}}
+                            </div>
+                            <div class="orders_item__body___item_title">
+                                {{p.totalPrice}} ₸
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="status">
+                <div class="status_item call" (click)="onChangeStatus('call', o._id)">
+                    <span class="material-icons">
+                        add_ic_call
+                    </span>
+                </div>
+                <div class="status_item inProg" (click)="onChangeStatus('inProg', o._id)">
+                    <span class="material-icons">
+                        local_shipping
+                    </span>
+                </div>
+                <div class="status_item success" (click)="onChangeStatus('success', o._id)">
+                    <span class="material-icons">
+                        done
+                    </span>
+                </div>
+                <div class="status_item canceled" (click)="onChangeStatus('canceled', o._id)">
+                    <span class="material-icons">
+                        close
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div *ngIf="cat != 'pharm' && type == 'primary'">
+    <div class="button-primary">
+        {{ name }}
+    </div>
+</div>
+<div *ngIf="cat != 'pharm' && type == 'secondary'">
+    <div class="button-secondary">
+        {{ name }}
+    </div>
+</div>
+<div *ngIf="cat == 'pharm' && type == 'primary'">
+    <div class="button-primary-pharm">
+        {{ name }}
+    </div>
+</div>
+<div *ngIf="cat == 'pharm' && type == 'secondary'">
+    <div class="button-secondary-pharm">
+        {{ name }}
+    </div>
+</div>

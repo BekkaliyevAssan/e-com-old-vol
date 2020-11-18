@@ -1,0 +1,10 @@
+.slider {
+    width: 1185px;
+    /* background: red; */
+}
+.mobile-slider {
+    width: 100vw;
+}
+.slider img {
+    cursor: pointer;
+}

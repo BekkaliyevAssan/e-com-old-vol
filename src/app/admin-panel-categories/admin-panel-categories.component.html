@@ -1,0 +1,31 @@
+<div class="c">
+    <div class="c_create" (keydown)="keyDownFunction($event)">
+        <input type="text" placeholder="Название категории" #myInput name="name" [(ngModel)]="categoryModel.name"> 
+        <div *ngIf="!editable">
+            <div class="c_create__button" (click)="onCreateCategory()">Создать категорию</div>
+        </div>
+        <div *ngIf="editable">
+            <div class="c_create__button" (click)="onUpdate()">Редактировать</div>
+        </div>
+    </div>
+
+    <div class="c_list">
+        <div *ngFor="let c of categories">
+            <div class="c_list__item">
+                <p>
+                    {{c.name}}
+                </p>
+                <div class="c_list__item___button">
+                    <span class="material-icons" (click)="onEdit(c.name, c._id)">
+                        create
+                    </span>
+                </div>
+                <div class="c_list__item___button">
+                    <span class="material-icons" (click)="onDelete(c._id)">
+                        delete
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

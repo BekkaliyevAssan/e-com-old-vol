@@ -1,0 +1,34 @@
+.as {
+    box-shadow: 4px 0px 20px rgba(0, 0, 0, 0.05);
+    height: 100vh;
+    display: grid;
+    align-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    /* grid-gap: 1rem; */
+}
+.as_item {
+    padding: 0 2rem;
+    height: 40px;
+    display: grid;
+    color: #868686;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.as_item:hover:not(.active) {
+    color: #0047ff;
+    transition: 0.2s;
+}
+.active {
+    color: #0047ff;
+    text-decoration: underline;
+}
+.shop_name {
+    position: absolute;
+    top: 0;
+    padding: 1rem 2rem;
+    font-weight: 500;
+}

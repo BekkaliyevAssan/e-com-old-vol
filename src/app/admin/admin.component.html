@@ -1,0 +1,155 @@
+<!-- option selection -->
+
+<div class="admin_header">
+    <a (click)="selectOption('ORDERS')">see orders</a>
+    <a (click)="selectOption('CATEGORY')">add category</a>
+    <a (click)="selectOption('SUBCATEGORY')">add subcategory</a>
+    <a (click)="selectOption('PRODUCT')">add product</a>
+</div>
+
+
+
+<!-- content via option -->
+
+<div class="admin_content">
+    <!-- main title -->
+
+    <div class="title">{{ option }}</div>
+
+
+    <div *ngIf="option == 'ORDERS'">
+        <div class="orders">
+            <div *ngFor="let order of orders">
+                <div class="order_item">
+                    <div class="order_item__list">
+                        <p>Name: {{order.name}}</p>
+                        <p>Phone: {{order.phone}}</p>
+                        <p>Adress: {{order.address}}</p>
+                    </div>
+                    <p>list of ordered products:</p>
+                    <div class="order_product__list">
+                    <div *ngFor="let product of order.products">
+                        <div class="order_product__list___item">
+                            <p>Product name: {{product.name}}</p>
+                            <p>Amount: {{product.quantity}}</p>
+                            <p>Total: {{product.totalPrice}}</p>
+                    </div>
+                    </div>
+                </div>
+                <p>Выбор статуса:</p>
+                <div class="order_control">
+                    <button class="success">Успешно</button>
+                    <button class="clearify">Нужно уточнить</button>
+                    <button class="progress">В процессе</button>
+                    <button class="refused">Отменено</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="option == 'CATEGORY'">
+        <div class="category_form">
+            <div class="label">Название категории</div>
+            <input type="text" name="category" [(ngModel)]="categoryModel.name">
+            <hr />
+            <button (click)="onCreateCategory()">Добавить</button>
+        </div>
+        <div class="subtitle">Список категории</div>
+        <hr />
+        <div class="category_list">
+            <div *ngFor="let category of categories">
+                <div class="category_item">
+                    <div>
+                        {{category.name}}
+                    </div>
+                    <button>
+                        <i class="material-icons">edit</i>
+                    </button>
+                    <button (click)="onDeleteCategory(category._id)">
+                        <i class="material-icons">clear</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="option == 'SUBCATEGORY'">
+        <div class="label">Категория подкатегории</div>
+        <select name="category" [(ngModel)]="subModel.category">
+            <option [value]="c._id" *ngFor="let c of categories">
+                {{c.name}}
+            </option>
+        </select>
+        <hr />
+        <div class="label">Название подкатегории</div>
+        <input type="text" name="name" [(ngModel)]="subModel.name">
+        <hr />
+        <button (click)="onCreateSub()">Добавить подкатегорию</button>
+
+        <div *ngFor="let subcat of subcategories">
+            <div class="category_item">
+                <div>
+                    {{subcat}}
+                </div>
+                <button>
+                    <i class="material-icons">edit</i>
+                </button>
+                <button (click)="onDeleteSubCategory(subcat)">
+                    <i class="material-icons">clear</i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="option == 'PRODUCT'">
+        <div class="products_form">
+            <div class="label">Название продукта</div>
+            <input type="text" [(ngModel)]="productModel.name">
+            <hr />
+            <div class="label">Категория продукта</div>
+            <select name="category" [(ngModel)]="productModel.category">
+                <option [value]="c.name" *ngFor="let c of categories">
+                    {{c.name}}
+                </option>
+            </select>
+            <hr />
+            <div class="label">Подкатегория продукта</div>
+            <select name="subcategory" [(ngModel)]="productModel.subcategory">
+                <option [value]="s" *ngFor="let s of subcategories">
+                    {{s}}
+                </option>
+            </select>
+            <hr />
+            <div class="label">Картинка продукта</div>
+            <input type="text" [(ngModel)]="productModel.image">
+            <hr />
+            <div class="label">Цена продукта</div>
+            <input type="text" [(ngModel)]="productModel.price">
+            <hr />
+            <button (click)="onCreate()">Добавить продукт</button>
+        </div>
+        <div class="subtitle">Список продуктов</div>
+        <hr />
+        <div class="product_list">
+            <div *ngFor="let product of products">
+                <div class="product_item">
+                    <div>
+                        {{product.name}}
+                    </div>
+                    <button>
+                        <i class="material-icons">edit</i>
+                    </button>
+                    <button (click)="onDeleteProduct(product._id)">
+                        <i class="material-icons">clear</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

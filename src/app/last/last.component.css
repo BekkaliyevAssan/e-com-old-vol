@@ -1,0 +1,41 @@
+.last {
+    position: relative;
+    display: grid;
+    align-items: center;
+    height: calc(100vh - 71px - 51px);
+}
+.last_content {
+    display: grid;
+    justify-items: center;
+}
+i {
+    font-size: 10rem;
+    color: #FFD800;
+}
+.last_title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+.last_text {
+    font-size: 14px;
+    font-weight: 500;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    padding: 0 2rem;
+}
+.button {
+    padding: 1rem 0;
+}
+button {
+    background: #0047FF;
+    height: 40px;
+    padding: 0 2rem;
+    color: #fff;
+    border: none;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    transition: 0.1s;
+}
+.button {
+}

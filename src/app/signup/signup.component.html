@@ -1,0 +1,21 @@
+<!-- <app-header [inner]="true"></app-header> -->
+<div class="signup-wrapper">
+    <div class="signup">
+        <div class="title">Присоединяйтесь</div>
+        <div class="login_item">
+            <div class="label">E-mail</div>
+            <input type="email" name="email" [(ngModel)]="signUpModel.email">
+        </div>
+        <div class="login_item">
+            <div class="label">Имя</div>
+            <input type="name" name="name" [(ngModel)]="signUpModel.name">
+        </div>
+        <div class="login_item">
+            <div class="label">Пароль</div>
+            <input type="password" name="password" [(ngModel)]="signUpModel.password">
+        </div>
+        <button (click)="onSubmit()">Загеристрироваться</button>
+        <div class="signup_toggle" routerLink="/login">Уже есть аккаунт?</div>
+    </div>
+</div>
+<!-- <app-navbar [focused]="false"></app-navbar> -->

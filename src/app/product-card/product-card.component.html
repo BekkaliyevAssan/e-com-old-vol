@@ -1,0 +1,137 @@
+<!-- <div *ngIf="seeAll == false && cart == false">
+    <div class="card" *ngIf="mobile" (click)="addItem(product)">
+        <div class="card_img"><img src="{{product.image}}" alt="asd" onError="this.src='assets/img/noPhoto2.svg'"></div>
+    <div class="desk_def__name">{{ product.name}}</div>
+    <div class="def__bottom">
+        <div class="desk_def__price">{{ product.price}} ₸/{{product.type.substring(0, 2)}}.</div>
+        <div class="desk_def__add" *ngIf="!products.includes(product._id)">В корзину</div>
+        <div class="desk_def__add added" *ngIf="products.includes(product._id)">Добавлено</div>
+    </div>
+    </div>
+</div> -->
+
+<div *ngIf="type == 'def'" class="desk_def" [ngStyle]="{'min-width': (mobile) ? '80vw' : ''}">
+    <div class="card_img"><img src="{{product.image}}" alt="asd" onError="this.src='assets/img/noPhoto2.svg'"></div>
+    <div class="desk_def__name">{{ product.name}}</div>
+    <div class="desk_def__price" *ngIf="product.type != ''">
+        {{product.price}} ₸/{{product.type.substring(0, 2)}}.
+    </div>
+    <div class="desk_def__price" *ngIf="product.type == ''">
+        {{product.price}} ₸
+    </div>
+    <div class="card_bottom">
+        <div class="card_bottom__qnt">
+            <div class="card_bottom__togle" (click)="onSubstract(product)">-</div>
+            {{product.quantity}}
+            <div class="card_bottom__togle" (click)="onAdd(product)">+</div>
+        </div>
+        <div class="card_button" (click)="addToCart(product)" *ngIf="!existingCart.includes(product._id)">В корзину
+        </div>
+        <div class="card_button added" (click)="onDelete(product)" *ngIf="existingCart.includes(product._id)">Добавлено
+        </div>
+    </div>
+</div>
+
+
+<!-- <div *ngIf="seeAll == true">
+    <div *ngIf="mobile">
+        <div class="see-all">
+            <div class="see-all_img"><img src="{{product.image}}" alt="lol"></div>
+            <div class="see-all_text">
+                <div class="see-all_text__title">{{ product.name }}</div>
+            </div>
+            <div class="see-all_price">{{ product.price }} ₸</div>
+            <div class="see-all_add"><i class="material-icons" (click)="addItem(product)">add</i></div>
+        </div>
+    </div>
+    <div *ngIf="!mobile">
+        <div class="desk_see-all">
+            <div class="desk_see-all_img"><img src="{{product.image}}" alt="lol"></div>
+            <div class="see-all_text">
+                <div class="see-all_text__title">{{ product.name }}</div>
+            </div>
+            <div class="see-all_price">{{ product.price }} ₸</div>
+            <div class="see-all_add"><i class="material-icons" (click)="addItem(product)">add</i></div>
+        </div>
+    </div>
+</div>
+
+
+    <div *ngIf="mobile && cart">
+        <div class="cart">
+            <div class="cart-see-all">
+                <div class="see-all_img"><img src="{{product.image}}" alt="asd" onError="this.src='assets/img/noPhotoSmall.svg'"></div>
+                <div class="see-all_text">
+                    <div class="see-all_text__title" [ngStyle]="{'font-size': '14px'}">{{ product.name }}</div>
+                </div>
+                <div class="see-all_delete"><i class="material-icons" (click)="deleteItem(product.name)">add</i></div>
+            </div>
+            <div class="cart_counter">
+                <div class="count">
+                    <div class="cart_counter__title">Кол-во:</div>
+                    <div class="count_toggle">
+                        <div class="count_toggle__decrease">
+                            <i class="material-icons" (click)="decreaseCounter()">remove</i>
+                        </div>
+                        <div class="quantity">
+                            {{product.quantity}}
+                        </div>
+                        <div class="count_toggle__increase">
+                            <i class="material-icons" (click)="onAdd()">add</i>
+                        </div>
+                    </div>
+                </div>
+                <div class="sum">
+                    <div class="cart_counter__title" [ngStyle]="{'font-weight': '500', 'font-size': '16px'}">Сумма: {{product.totalPrice}} ₸</div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+<!-- ------------------------- -->
+
+<div *ngIf="type == 'cart'">
+    <div class="desk_cart">
+        <div class="desk_cart__img"><img src="{{product.image}}" alt="asd"
+                onError="this.src='assets/img/noPhotoSmall.svg'"></div>
+
+        <div class="desk_cart__title">{{ product.name }}</div>
+        <div class="desk_cart__cost">{{ product.price }} ₸</div>
+        <div class="desk_cart__amount">
+            <div class="count">
+                <div class="card_bottom__qnt">
+                    <div class="card_bottom__togle" (click)="onSubstract(product)">-</div>
+                    {{product.quantity}}
+                    <div class="card_bottom__togle" (click)="onAdd(product)">+</div>
+                </div>
+            </div>
+        </div>
+        <div class="desk_cart__total">{{product.totalPrice}} ₸</div>
+        <div class="desk_cart__delete"><i class="material-icons" (click)="onDelete(product)">clear</i></div>
+    </div>
+</div>
+
+<div *ngIf="type == 'check'">
+    <div class="desk_check">
+        <div class="desk_check_cart__img"><img src="{{product.image}}" alt="asd"
+                onError="this.src='assets/img/noPhotoSmall.svg'"></div>
+
+        <!-- <div> -->
+            <div class="desk_check__title">{{ product.name }}</div>
+            <div class="desk_cart__text">
+                <!-- <div class="desk_cart__cost">{{ product.price }} ₸</div> -->
+                <div class="desk_cart__amount">
+                    <div class="check_count">
+                        <div class="card_bottom__qnt">
+                            <div class="card_bottom__togle" (click)="onSubstract(product)">-</div>
+                            {{product.quantity}}
+                            <div class="card_bottom__togle" (click)="onAdd(product)">+</div>
+                        </div>
+                    </div>
+                </div>
+            <!-- </div> -->
+        </div>
+        <div class="desk_cart__total" [ngStyle]="{'justify-items': 'end'}">{{product.totalPrice}} ₸</div>
+        <div class="desk_cart__delete"><i class="material-icons" (click)="onDelete(product)">clear</i></div>
+    </div>
+</div>

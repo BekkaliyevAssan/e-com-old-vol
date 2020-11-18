@@ -1,0 +1,52 @@
+<div class="p">
+    <div class="p_create" (keydown)="keyDownFunction($event)">
+        <div class="p_create__col">
+            <input type="text" [(ngModel)]="productModel.name" placeholder="Название продукта">
+            <select name="category" [(ngModel)]="productModel.category" (change)="onBlur()">
+                <option value="" disabled>Выбрать категорию</option>
+                <option [value]="c.name" *ngFor="let c of categories">
+                    {{c.name}}
+                </option>
+            </select>
+            <select name="subcategory" [(ngModel)]="productModel.subcategory">
+                <option value="" disabled>Выбрать подкатегорию</option>
+                <option [value]="s" *ngFor="let s of subcategories">
+                    {{s}}
+                </option>
+            </select>
+            <input type="text" [(ngModel)]="productModel.quantityOnShop" placeholder="Общее количесво">
+        </div>
+        <div class="p_create__col">
+            <input type="text" [(ngModel)]="productModel.image" placeholder="Ссылка на картинку">
+            <input type="text" [(ngModel)]="productModel.supplier" placeholder="Поставщик">
+            <input type="text" [(ngModel)]="productModel.shopname" placeholder="Магазин">
+            <input type="text" [(ngModel)]="productModel.price" placeholder="Цена продукта">
+        </div>
+    </div>
+    <div *ngIf="!editable">
+        <div class="p_button" (click)="onCreate()">Добавить продукт</div>
+    </div>
+    <div *ngIf="editable">
+        <div class="p_button" (click)="onUpdate()">Изменить продукт</div>
+    </div>
+    <div class="p_list">
+        <div class="p_list__search"><input type="text"
+                (input)="onSearchChange($event.target.value)" placeholder="Поиск по продуктам">
+        </div>
+        <div class="p_list__res">
+            <div *ngFor="let res of searchRes">
+                <div class="p_list__res___item">
+                    <p>
+                        {{res.name}}
+                    </p>
+                    <div class="p_list__res___item_item">
+                        <i class="material-icons" (click)="onEdit(res._id)">edit</i>
+                    </div>
+                    <div class="p_list__res___item_item">
+                        <i class="material-icons" (click)="onDelete(res._id)">delete</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

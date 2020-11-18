@@ -1,0 +1,67 @@
+<div *ngIf="mobile">
+    <div class="search">
+        <app-header [inner]="true"></app-header>
+        <div class="mobile-title">Результат поиска</div>
+        <div class="mobile-small-title">Найдено товаров: {{prodList.length}}</div>
+        <div class="mobile-subtitle">По запросу «{{val}}»</div>
+        <div class="list" *ngIf="dataLoaded">
+            <div
+                *ngFor="let p of prodList | paginate: { id: 'listing_pagination', itemsPerPage: 20, currentPage: page, totalItems: totalRecords }">
+                <div class="see-all_list__item">
+                    <app-product-card [product]="p" [@fadeIn] [type]="'def'"></app-product-card>
+                </div>
+            </div>
+            <div class="pagination-controll" *ngIf="!isFiltrating">
+                <pagination-controls id="listing_pagination" (pageChange)="page = $event"
+                    (pageChange)="pageChanged($event)" (pageBoundsCorrection)="page = $event" maxSize="9"
+                    directionLinks="true" autoHide="true" responsive="true" previousLabel="Пред." nextLabel="След."
+                    screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                    screenReaderCurrentLabel="You're on page">
+                </pagination-controls>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!dataLoaded">
+        <div *ngFor="let i of ['','','','','']">
+            <div class="skeleton_item">
+                <div class="ski_img"></div>
+                <div class="ski_name">
+                    <div [ngStyle]="{'width': '70%'}"></div>
+                    <div></div>
+                </div>
+                <div class="ski_price"></div>
+                <div class="ski_button">
+                    <div></div>
+                    <div [ngStyle]="{'background': '#acacac'}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!mobile">
+    <div class="desk-search_wrapper">
+        <div class="desk-search">
+            <div class="mobile-title">Результат поиска</div>
+        <div class="mobile-small-title">Найдено товаров: {{prodList.length}}</div>
+        <div class="mobile-subtitle">По запросу «{{val}}»</div>
+        <div class="desk-list" *ngIf="dataLoaded">
+            <div
+                *ngFor="let p of prodList | paginate: { id: 'listing_pagination', itemsPerPage: 20, currentPage: page, totalItems: totalRecords }">
+                <div class="see-all_list__item">
+                    <app-product-card [product]="p" [@fadeIn] [type]="'def'"></app-product-card>
+                </div>
+            </div>
+           
+        </div>
+        <div class="pagination-controll" *ngIf="!isFiltrating">
+            <pagination-controls id="listing_pagination" (pageChange)="page = $event"
+                (pageChange)="pageChanged($event)" (pageBoundsCorrection)="page = $event" maxSize="9"
+                directionLinks="true" autoHide="true" responsive="true" previousLabel="Пред." nextLabel="След."
+                screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+        </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div *ngIf="mobile">
+    <app-header [inner]="true"></app-header>
+    <div class="cat">
+        <div class="title">
+            {{title.name}}
+        </div>
+        <div class="subcat">
+            <div *ngFor="let sub of title.subcategories">
+                <div [ngStyle]="{'display': (sub == '' || sub == null) ? 'none' : ''}" class="subcat_item" (click)="onNavigate(title.name, sub)">
+                    <div>
+                        {{sub}}
+                    </div>
+                    <div class="age-badge" *ngIf="sub == 'Алкоголь' || sub == 'Табачные изделия'">21+</div>
+                    <span class="material-icons">
+                        keyboard_arrow_right
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

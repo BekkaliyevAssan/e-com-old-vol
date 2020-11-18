@@ -1,0 +1,101 @@
+<div class="navbar">
+  <div class="navbar-top_wrapper">
+    <div class="navbar-top">
+      <!-- <div class="switch" *ngIf="cat == 'pharm'" (click)="selectShop('magaz')">Перейти в мини-маркет</div>
+      <div class="switch" *ngIf="cat != 'pharm'" (click)="selectShop('pharm')">Перейти в аптеку</div> -->
+
+      <div class="switch" (click)="toggleSidebar()" *ngIf="lang == 'rus'">
+        Сменить магазин
+      </div>
+      <div class="switch" (click)="toggleSidebar()" *ngIf="lang == 'kaz'">
+        Дүкен ауыстыру
+      </div>
+        
+      <div class="phone">
+        <span *ngIf="nearestShopName != 'ул. Монкеулы, 97'">
+          {{nearestShopName}}
+        </span>
+        <span *ngIf="nearestShopName == 'ул. Монкеулы, 97'">
+          п. Зачаганск, ул. Монкеулы, 97
+        </span>
+        <!-- | -->
+        <span>
+          {{nearestShopPhone}}
+        </span>
+      </div>
+      
+      <div class="email">
+        nazel.help@gmail.com
+      </div>
+
+      <div class="auth">
+        <div class="login" routerLink="/login" *ngIf="lang == 'rus'">
+          Войти
+        </div>
+        <div class="login" routerLink="/login" *ngIf="lang == 'kaz'">
+          Кіру
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar-wrapper">
+    <div class="navbar_inner">
+      <div class="logo" routerLink="/home">
+        <div *ngIf="cat == 'pharm'">
+          <app-svg [name]="'nazelPharmLogoMobile'"></app-svg>
+        </div>
+        <div *ngIf="cat != 'pharm'">
+          <app-svg [name]="'nazelMagazLogoMobile'"></app-svg>
+        </div>
+      </div>
+      <div class="search" routerLink="/search">
+        <input type="text" *ngIf="lang == 'rus'" placeholder="Найти продукт">
+        <input type="text" *ngIf="lang == 'kaz'" placeholder="Тауар іздеу">
+        <div *ngIf="cat == 'pharm'">
+          <i class="material-icons pharm">search</i>
+        </div>
+        <div *ngIf="cat != 'pharm'">
+          <i class="material-icons">search</i>
+        </div>
+      </div>
+      <div *ngIf="cat == 'pharm' && lang == 'rus'">
+        <div class="routes">
+          <div class="routes_item" routerLink="/home" routerLinkActive="active-pharm">Главная</div>
+          <div class="routes_item" routerLink="/category" routerLinkActive="active-pharm">Каталог</div>
+          <div class="routes_item" routerLink="/cart" routerLinkActive="active-pharm">Корзина
+              <div class="badge">{{badge}}</div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="cat == 'pharm' && lang == 'kaz'">
+        <div class="routes">
+          <div class="routes_item" routerLink="/home" routerLinkActive="active-pharm">Бас бет</div>
+          <div class="routes_item" routerLink="/category" routerLinkActive="active-pharm">Каталог</div>
+          <div class="routes_item" routerLink="/cart" routerLinkActive="active-pharm">Себет
+              <div class="badge">{{badge}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="cat != 'pharm' && lang == 'rus'">
+        <div class="routes">
+          <div class="routes_item" routerLink="/home" routerLinkActive="active">Главная</div>
+          <div class="routes_item" routerLink="/category" routerLinkActive="active">Каталог</div>
+          <div class="routes_item" routerLink="/cart" routerLinkActive="active">Корзина
+              <div class="badge">{{badge}}</div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="cat != 'pharm' && lang == 'kaz'">
+        <div class="routes">
+          <div class="routes_item" routerLink="/home" routerLinkActive="active">Бас бет</div>
+          <div class="routes_item" routerLink="/category" routerLinkActive="active">Каталог</div>
+          <div class="routes_item" routerLink="/cart" routerLinkActive="active">Себет
+              <div class="badge">{{badge}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,356 @@
+<div *ngIf="mobile">
+  <app-header [inner]="true"></app-header>
+  <div class="check">
+    <div class="title" *ngIf="lang == 'rus'">Оформление заказа</div>
+    <div class="title" *ngIf="lang == 'kaz'">Тапсырысты рәсімдеу</div>
+    <div class="desk_check__subtitle" [ngStyle]="{'padding-bottom': '1rem'}" *ngIf="lang == 'rus'">
+      Данные для доставки
+    </div>
+    <div class="desk_check__subtitle" [ngStyle]="{'padding-bottom': '1rem'}" *ngIf="lang == 'kaz'">
+      Жеткізу мәліметі
+    </div>
+    <div class="input-group">
+      <div class="input-grout_item">
+        <div class="label">Адрес доставки</div>
+        <input type="address" name="address" [(ngModel)]="checkInfo.address" (focus)="onFocus()" (blur)="onBlur()"
+          (click)="trigger = true">
+      </div>
+      <div class="input-grout_item">
+        <div class="desk_label">Квартира / офис</div>
+        <input type="address" name="apartment" [(ngModel)]="checkInfo.apartment" (focus)="onFocus()" (input)="onBlur()"
+          (click)="trigger = true">
+      </div>
+      <div class="input-grout_item">
+        <div class="desk_label">Этаж</div>
+        <input type="address" name="floor" [(ngModel)]="checkInfo.floor" (focus)="onFocus()" (input)="onBlur()"
+          (click)="trigger = true">
+      </div>
+      <div class="input-grout_item">
+        <div class="desk_label">Код на двери</div>
+        <input type="address" name="doorCode" [(ngModel)]="checkInfo.doorCode" (focus)="onFocus()" (input)="onBlur()"
+          (click)="trigger = true">
+      </div>
+      <div class="input-grout_item">
+        <div class="label">Контактный номер</div>
+        <input type="phone" name="phone" [textMask]="{mask: mask}" placeholder="+7 (___) ___-____"
+          [(ngModel)]="checkInfo.phone" (focus)="onFocus()" (blur)="onBlur()" (click)="trigger = true">
+      </div>
+      <div class="input-grout_item">
+        <div class="label">Имя получателя</div>
+        <input type="name" name="name" [(ngModel)]="checkInfo.name" (focus)="onFocus()" (blur)="onBlur()"
+          (click)="trigger = true">
+      </div>
+      <div class="option">
+        <label class="container">
+          <div class="text" [ngStyle]="{'color': (cat == 'pharm') ? '#00BE04' : 'red'}" routerLink="/info">Согласен на
+            обработку персональных <br />данных</div>
+          <input type="checkbox" name="saveMe" [(ngModel)]="checkInfo.saveMe">
+          <span *ngIf="cat == 'pharm'" class="checkmark"></span>
+          <span *ngIf="cat != 'pharm'" class="checkmark red"></span>
+        </label>
+
+      </div>
+
+      <div class="desk_check__subtitle" *ngIf="lang == 'rus'">
+        Способ доставки
+      </div>
+      <div class="desk_check__subtitle" *ngIf="lang == 'kaz'">
+        Жеткізу түрі
+      </div>
+      <div class="desk-delivery" [ngStyle]="{'grid-template-columns': '1fr', 'grid-gap': '1rem'}">
+        <div class="dd_item" (click)="onDeliveryTypeSelect('delivery')"
+          [ngStyle]="{'border': (deliveryType == 'delivery') ? '1px solid #707070' : '', 'background': (deliveryType == 'delivery') ? '#fdfdfd' : ''}">
+          <div class="dd_item__button"></div>
+          <div class="dd_item__title" [ngStyle]="{'color': (deliveryType == 'delivery') ? '#000' : ''}">Доставка до
+            двери</div>
+          <div class="dd_item__price">от 300 ₸</div>
+          <div class="dd_item__text">Экспресс доставка до двери в течении часа.<br>Сумма одного заказа на доставку
+            должна быть не менее 2000 тенге.</div>
+        </div>
+        <div class="dd_item" (click)="onDeliveryTypeSelect('self')"
+          [ngStyle]="{'border': (deliveryType == 'self') ? '1px solid #707070' : '', 'background': (deliveryType == 'self') ? '#fdfdfd' : ''}">
+          <div class="dd_item__button"></div>
+          <div class="dd_item__title" [ngStyle]="{'color': (deliveryType == 'self') ? '#000' : ''}">Самовывоз</div>
+          <div class="dd_item__price">Бесплатно</div>
+          <div class="dd_item__text">Оформите самовывоз по адресу: {{currentShop.name}}<br>Номер телефона:
+            {{currentShop.phone}}</div>
+        </div>
+      </div>
+
+      <div class="desk_check__subtitle" *ngIf="lang == 'rus'">
+        Дополнительная информация
+      </div>
+      <div class="desk_check__subtitle" *ngIf="lang == 'kaz'">
+        Қосымша ақпарат
+      </div>
+      <div class="input-grout_item">
+        <div class="desk_label">Комментарии к доставке</div>
+        <input type="name" name="comments" [(ngModel)]="checkInfo.comments" (focus)="onFocus()" (input)="onBlur()"
+          (click)="trigger = true">
+      </div>
+
+      <div class="desk_promocode">
+        <div class="desk_check__subtitle">
+          Промо-код
+        </div>
+        <div class="input-grout_item">
+          <div class="desk_label">Проверить промо-код</div>
+          <input type="name" name="comments" disabled (click)="trigger = true">
+        </div>
+      </div>
+
+      <!-- bottom button below -->
+    </div>
+  </div>
+
+  <div *ngIf="focused">
+  </div>
+  <div *ngIf="!focused">
+    <div class="next">
+      <div class="next_total" *ngIf="finalPrice < 10000">
+        Итого: {{finalPrice + 300}} ₸
+      </div>
+      <div class="next_total" *ngIf="finalPrice >= 10000">
+        Итого: {{finalPrice}} ₸
+      </div>
+      <div *ngIf="full">
+        <!-- <button class="full" (click)="onSend()">Заказать</button> -->
+        <app-button (click)="onSend()" *ngIf="cat == 'pharm'" [name]="'Заказать'" [type]="'secondary'" [cat]="'pharm'">
+        </app-button>
+        <app-button (click)="onSend()" *ngIf="cat != 'pharm'" [name]="'Заказать'" [type]="'secondary'"></app-button>
+      </div>
+      <div *ngIf="!full" [ngStyle]="{'opacity': '0.5'}">
+        <!-- <button class="notFull" (click)="warning()">Заказать</button> -->
+        <app-button *ngIf="cat == 'pharm'" [name]="'Заказать'" [type]="'secondary'" [cat]="'pharm'"></app-button>
+        <app-button *ngIf="cat != 'pharm'" [name]="'Заказать'" [type]="'secondary'"></app-button>
+
+      </div>
+    </div>
+    <div *ngIf="!focused">
+      <app-navbar></app-navbar>
+    </div>
+  </div>
+</div>
+<!-- ------------------------------------------- -->
+
+
+<div *ngIf="!mobile">
+  <div class="desk_check">
+    <div class="title" *ngIf="lang == 'rus'">Оформление заказа</div>
+    <div class="title" *ngIf="lang == 'kaz'">Тапсырысты рәсімдеу</div>
+    <div class="desk_check__subtitle" *ngIf="lang == 'rus'">
+      Данные для доставки
+    </div>
+    <div class="desk_check__subtitle" *ngIf="lang == 'kaz'">
+      Жеткізу мәліметі
+    </div>
+    <div class="desk_check__wrapper">
+      <div class="input-group" (keydown)="keyDownFunction($event)">
+        <div class="input-grout_item">
+          <div class="desk_label">Адрес доставки</div>
+          <input type="address" name="address" [(ngModel)]="checkInfo.address" (focus)="onFocus()" (input)="onBlur()"
+            (click)="trigger = true">
+        </div>
+        <div class="input-group_item__exact">
+          <div class="input-grout_item">
+            <div class="desk_label">Квартира / офис</div>
+            <input type="address" name="apartment" [(ngModel)]="checkInfo.apartment" (focus)="onFocus()"
+              (input)="onBlur()" (click)="trigger = true">
+          </div>
+          <div class="input-grout_item">
+            <div class="desk_label">Этаж</div>
+            <input type="address" name="floor" [(ngModel)]="checkInfo.floor" (focus)="onFocus()" (input)="onBlur()"
+              (click)="trigger = true">
+          </div>
+          <div class="input-grout_item">
+            <div class="desk_label">Код на двери</div>
+            <input type="address" name="doorCode" [(ngModel)]="checkInfo.doorCode" (focus)="onFocus()"
+              (input)="onBlur()" (click)="trigger = true">
+          </div>
+        </div>
+        <div class="input-grout_item">
+          <div class="desk_label">Контактный номер</div>
+          <input type="phone" name="phone" [textMask]="{mask: mask}" placeholder="+7 (___) ___-____"
+            [(ngModel)]="checkInfo.phone" (focus)="onFocus()" (input)="onBlur()" (click)="trigger = true">
+        </div>
+        <div class="input-grout_item">
+          <div class="desk_label">Имя получателя</div>
+          <input type="name" name="name" [(ngModel)]="checkInfo.name" (focus)="onFocus()" (input)="onBlur()"
+            (click)="trigger = true">
+        </div>
+        <div class="option">
+          <label class="container">
+            <div class="desk_text" [ngStyle]="{'color': (cat == 'pharm') ? '#00BE04' : 'red', 'cursor': 'pointer'}"
+              routerLink="/info">Согласен на обработку персональных данных</div>
+            <input type="checkbox" name="saveMe" [(ngModel)]="checkInfo.saveMe">
+            <span *ngIf="cat == 'pharm'" class="checkmark"></span>
+            <span *ngIf="cat != 'pharm'" class="checkmark red"></span>
+          </label>
+
+          <!-- <div class="desk-option_link" *ngIf="cat == 'pharm'" [ngStyle]="{'color': '#00BE04'}">Есть промо-код?</div>
+          <div class="desk-option_link" *ngIf="cat != 'pharm'" [ngStyle]="{'color': 'red'}">Есть промо-код?</div> -->
+        </div>
+
+        <div class="desk_check__subtitle" *ngIf="lang == 'rus'">
+          Способ доставки
+        </div>
+        <div class="desk_check__subtitle" *ngIf="lang == 'kaz'">
+          Жеткізу түрі
+        </div>
+        <div class="desk-delivery">
+          <div class="dd_item" (click)="onDeliveryTypeSelect('delivery')"
+            [ngStyle]="{'border': (deliveryType == 'delivery') ? '1px solid #707070' : '', 'background': (deliveryType == 'delivery') ? '#fdfdfd' : ''}">
+            <div class="dd_item__button"></div>
+            <div class="dd_item__title" [ngStyle]="{'color': (deliveryType == 'delivery') ? '#000' : ''}">Доставка до
+              двери</div>
+            <div class="dd_item__price">от 300 ₸</div>
+            <div class="dd_item__text">Экспресс доставка до двери в течении часа.<br>Сумма одного заказа на доставку
+              должна быть не менее 2000 тенге.</div>
+          </div>
+          <div class="dd_item" (click)="onDeliveryTypeSelect('self')"
+            [ngStyle]="{'border': (deliveryType == 'self') ? '1px solid #707070' : '', 'background': (deliveryType == 'self') ? '#fdfdfd' : ''}">
+            <div class="dd_item__button"></div>
+            <div class="dd_item__title" [ngStyle]="{'color': (deliveryType == 'self') ? '#000' : ''}">Самовывоз</div>
+            <div class="dd_item__price">Бесплатно</div>
+            <div class="dd_item__text">Оформите самовывоз по адресу: {{currentShop.name}}<br>Номер телефона:
+              {{currentShop.phone}}</div>
+          </div>
+        </div>
+
+
+        <div class="desk_check__subtitle" *ngIf="lang == 'rus'">
+          Дополнительная информация
+        </div>
+        <div class="desk_check__subtitle" *ngIf="lang == 'kaz'">
+          Қосымша ақпарат
+        </div>
+        <div class="input-grout_item">
+          <div class="desk_label">Комментарии к доставке</div>
+          <input type="name" name="comments" [(ngModel)]="checkInfo.comments" (focus)="onFocus()" (input)="onBlur()"
+            (click)="trigger = true">
+        </div>
+
+        <div class="desk_promocode">
+          <div class="desk_check__subtitle">
+            Промо-код
+          </div>
+          <div class="input-grout_item">
+            <div class="desk_label">Проверить промо-код</div>
+            <input type="name" name="comments" disabled (click)="trigger = true">
+          </div>
+        </div>
+
+      </div>
+      <div class="desk_next-wrapper">
+        <div class="desk_check__subtitle" [ngStyle]="{'margin-top': '0'}" *ngIf="lang == 'rus'">
+          Состав заказа({{products.length}})
+        </div>
+        <div class="desk_check__subtitle" [ngStyle]="{'margin-top': '0'}" *ngIf="lang == 'kaz'">
+          Тауар тізімі({{products.length}})
+        </div>
+        <div class="desk_next">
+          <div *ngIf="products.length >= 3" class="desk_list__wrapper"
+            [ngStyle]="{'height': (!isListToggled) ?  256 + 'px' : contentHeight + 'px'}">
+            <div class="desk_list" #content>
+              <div *ngFor="let p of products">
+                <app-product-card [product]="p" [type]="'check'"></app-product-card>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="products.length < 3" class="desk_list__wrapper" [ngStyle]="{'height': contentHeight + 'px'}">
+            <div class="desk_list" #content>
+              <div *ngFor="let p of products">
+                <app-product-card [product]="p" [type]="'check'"></app-product-card>
+              </div>
+            </div>
+          </div>
+          <div class="desk_total">
+            <div class="desk_list__toggle" *ngIf="!isListToggled && products.length > 3" (click)="scrollTo('bottom')"
+              (click)="isListToggled = !isListToggled"
+              [ngStyle]="{'background': (cat == 'pharm') ? '#00BE04' : '#ff0000'}">
+              Показать все
+            </div>
+            <div class="desk_list__toggle" *ngIf="isListToggled && products.length > 3" (click)="scrollTo('top')"
+              (click)="isListToggled = !isListToggled"
+              [ngStyle]="{'background': (cat == 'pharm') ? '#00BE04' : '#ff0000'}">
+              Скрыть
+            </div>
+            <div class="desk_total__label">
+              <p class="desk_main" [ngStyle]="{'font-weight': 'bold', 'font-size': '16px', 'color': '#232323'}">Сумма
+                заказа:</p>
+              <p>Заказ на:</p>
+              <p>Доставка:</p>
+            </div>
+            <div class="desk_total__price">
+              <p [ngStyle]="{'font-weight': 'bold', 'font-size': '24px', 'color': '#232323'}"
+                *ngIf="finalPrice < 10000">{{finalPrice + 300}} ₸</p>
+              <p [ngStyle]="{'font-weight': 'bold', 'font-size': '24px', 'color': '#232323'}"
+                *ngIf="finalPrice >= 10000">{{finalPrice}} ₸</p>
+              <p>{{finalPrice}} ₸</p>
+              <p *ngIf="finalPrice < 10000">300 ₸</p>
+              <p *ngIf="finalPrice >= 10000">0 ₸</p>
+            </div>
+            <!-- <div class="desk_total__item">
+              Стоймость товара: <strong>{{finalPrice}} ₸</strong>
+            </div>
+            <div class="desk_total__item" *ngIf="finalPrice >= 10000" [ngStyle]="{'text-decoration' : 'line-through'}">
+              Цена доставки: <strong>700 ₸</strong> 
+            </div>
+            <div class="desk_total__item" *ngIf="finalPrice < 10000" [ngStyle]="{'text-decoration' : 'none'}">
+              Цена доставки: <strong>700 ₸</strong> 
+            </div>
+            <div class="desk_total__count" *ngIf="finalPrice < 10000">Итого: {{finalPrice + 700}} ₸</div>
+            <div class="desk_total__count" *ngIf="finalPrice >= 10000">Итого: {{finalPrice}} ₸</div> -->
+          </div>
+          <div *ngIf="full" class="button">
+            <app-button (click)="onSend()" *ngIf="cat == 'pharm'" [name]="'Заказать'" [type]="'primary'"
+              [cat]="'pharm'"></app-button>
+            <app-button (click)="onSend()" *ngIf="cat != 'pharm'" [name]="'Заказать'" [type]="'primary'"></app-button>
+          </div>
+          <div *ngIf="!full" class="button" [ngStyle]="{'opacity': '0.4'}">
+            <app-button *ngIf="cat == 'pharm'" [name]="'Подтвердить заказ'" [type]="'primary'" [cat]="'pharm'">
+            </app-button>
+            <app-button *ngIf="cat != 'pharm'" [name]="'Подтвердить заказ'" [type]="'primary'"></app-button>
+          </div>
+        </div>
+        <!-- <div *ngIf="finalPrice < 8000" class="desk_add">
+          При заказе от 10 000 ₸ - <strong>Бесплатная доставка.</strong>
+        </div>
+        <div *ngIf="finalPrice > 8000 && finalPrice <= 10000" class="desk_add">
+          При заказе от 10 000 ₸ - <strong>Бесплатная доставка.</strong>
+          <div class="divider"></div>
+          Наберите товар на <strong>{{10000 - finalPrice}} ₸</strong> и мы доставляем ваш заказ бесплатно.
+      </div>
+      <div *ngIf="finalPrice > 10000" class="desk_add">
+          Ого, какой большой заказ. Такому клиенту <strong>бесплатная доставка</strong> гарантирована.
+      </div> -->
+      </div>
+      <!-- <div class="desk_total__wrapper">
+        <div class="desk_next">
+          <div class="desk_total">
+            Вы набрали товар на <p>{{checkInfo.total}} ₸</p>
+            <span>Ну вот, теперь осталось узнать, куда Вам доставить заказ</span>
+          </div>
+          <div *ngIf="full" class="button">
+            <app-button (click)="onSend()" *ngIf="cat == 'pharm'" [name]="'Заказать'" [type]="'primary'"
+              [cat]="'pharm'"></app-button>
+            <app-button (click)="onSend()" *ngIf="cat != 'pharm'" [name]="'Заказать'" [type]="'primary'"></app-button>
+          </div>
+          <div *ngIf="!full" class="button" [ngStyle]="{'opacity': '0.7'}">
+            <app-button *ngIf="cat == 'pharm'" [name]="'Заказать'" [type]="'primary'" [cat]="'pharm'"></app-button>
+            <app-button *ngIf="cat != 'pharm'" [name]="'Заказать'" [type]="'primary'"></app-button>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <!-- <div *ngIf="!focused">
+        <div class="next">
+            <div class="next_total">
+                Итого: {{checkInfo.total}} ₸
+            </div>
+            
+        </div>
+        <app-navbar [focused]="false"></app-navbar>
+    </div>  -->
+</div>

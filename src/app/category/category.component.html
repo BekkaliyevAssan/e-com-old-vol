@@ -1,0 +1,87 @@
+<div *ngIf="mobile">
+    <app-header></app-header>
+    <div class="header-title" [ngStyle]="{'margin-left': '1rem'}">Каталог</div>
+<div class="category-list" *ngIf="dataLoaded">
+    <div *ngIf="!newTab">
+    <div *ngFor="let c of categories">
+        <div class="category-list_item" *ngIf="c.name" [@fadeIn] (click)="onSelect(c)">
+            <div>
+                {{c.name}}
+            </div>
+            <span class="material-icons">
+                keyboard_arrow_right
+                </span>
+
+                
+        </div>
+    </div>
+</div>
+    <!-- <div *ngIf="selectedCategory && newTab">
+        <div class="mobile_title" (click)="newTab = false">
+            <span class="material-icons">
+                keyboard_arrow_left
+                </span>
+            {{selectedCategory.name}}
+        </div>
+    <div *ngFor="let sub of selectedCategory.subcategories">
+                    <div class="mobile_subcategory" (click)="onNavigate(selectedCategory.name, sub)" *ngIf="sub != null">
+                        <div>
+                            {{sub}}
+                        </div>
+                        <div class="age-badge" *ngIf="sub == 'Алкоголь' || sub == 'Табачные изделия'">21+</div>
+                        <span class="material-icons">
+                            keyboard_arrow_right
+                            </span>
+                    </div>
+                </div>
+            </div> -->
+</div>
+</div>
+
+<!-- ------------------------------------------------------- -->
+
+<div *ngIf="!mobile && dataLoaded" class="desk_wrapper">
+    <div class="header-title">Каталог</div>
+    <div class="t">
+        <div class="t_list">
+            <div *ngFor="let c of categories">
+                <div class="t_list__item" *ngIf="c.name" (click)="onSelect(c)" [ngStyle]="{'background' : (c == selectedCategoryDesk) ? '#DED9FF' : ''}">
+                    {{c.name}}
+                </div>
+            </div>
+        </div>
+        <div class="t_list__sub">
+            <div class="t_list__sub___title">{{selectedCategoryDesk.name}}</div>
+            <div class="t_list__sub___wrapper">
+                <div *ngFor="let s of selectedCategoryDesk.subcategories">
+                    <div class="t_list__sub___item" *ngIf="s != null">
+                        <div (click)="onNavigate(selectedCategoryDesk.name, s)">
+                            {{s}}
+                        </div>
+                        <div class="age-badge" *ngIf="s == 'Алкоголь' || s == 'Табачные изделия'">21+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="desk_category-list">
+        <div *ngFor="let c of categories">
+            <div class="desk_category-list_item" *ngIf="c.name != 'nocategory' && c.subcategories[0] != null" [@fadeIn]>
+                <div class="title">
+                    {{c.name}}
+                </div>
+                <div class="content">
+                    <div *ngFor="let sub of c.subcategories">
+                        <div class="content_item" (click)="onNavigate(c.name, sub)" *ngIf="sub">
+                            {{sub}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>     -->
+    </div>
+    
+    <div class="category-list_skeleton" *ngIf="!dataLoaded">
+        <app-preloader></app-preloader>
+    </div>

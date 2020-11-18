@@ -1,0 +1,215 @@
+<!-- <div class="mobile_wrapper" *ngIf="mobile">
+    <div class="w_modal" >
+        <div class="mobile_w_modal__header">Добро пожаловать, {{username}}!</div>
+        <div class="mobile_w_modal__text">Выберите категорию</div>
+        <div class="w_modal__buttons">
+            <div class="button_item" (click)="selectShopCat('magaz')" [ngStyle]="{'background': '#FF0000'}">
+                <img src="../../assets/img/prehomeMagazMobile.png" alt="">
+            </div>
+
+            <div class="button_item" (click)="selectShopCat('pharm')" [ngStyle]="{'background': '#00BE04'}">
+                <img src="../../assets/img/prehomePharmMobile.png" alt="">
+            </div>
+        </div>
+        <div class="select-shop-manually_wrapper">
+
+            <div class="select-shop-manually" *ngIf="selectNearestManually == 'true'">
+                <div class="mobile_w_modal__text">Выберете ближайшую точку продажи</div>
+                <div class="select-shop-manyally_content">
+                    <div *ngFor="let s of shopsByType">
+                        <div class="select-shop-manually__item" *ngIf="s.name != 'ул. Монкеулы, 97'" (click)="onShopSelect(s)">
+                            {{s.name}}
+                        </div>
+                        <div class="select-shop-manually__item" *ngIf="s.name == 'ул. Монкеулы, 97'" (click)="onShopSelect(s)">
+                            п. Зачаганск, ул. Монкеулы, 97
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="wrapper" *ngIf="!mobile">
+        
+    <div class="w_modal">
+        <div class="w_modal__header">Добро пожаловать, {{username}}!</div>
+        <div class="w_modal__text">1. Выберите категорию</div>
+        <div class="w_modal__buttons">
+            <div class="desk_button_item" (click)="selectShopCat('magaz')" [ngStyle]="{'background': '#FF0000'}">
+                <img src="../../assets/img/prehomeMagaz.png" alt="">
+            </div>
+
+            <div class="desk_button_item" (click)="selectShopCat('pharm')" [ngStyle]="{'background': '#00BE04'}">
+                <img src="../../assets/img/prehomePharm.png" alt="">
+            </div>
+        </div>
+        <div class="select-shop-manually_wrapper">
+
+            <div class="select-shop-manually">
+                <div class="w_modal__text" *ngIf="shopsByType.length != 0">2. Выберете ближайшую точку продажи</div>
+                <div class="select-shop-manyally_content">
+                    <div *ngFor="let s of shopsByType">
+                        <div class="select-shop-manually__item" *ngIf="s.name != 'ул. Монкеулы, 97'" (click)="onShopSelect(s)">
+                            {{s.name}}
+                        </div>
+                        <div class="select-shop-manually__item" *ngIf="s.name == 'ул. Монкеулы, 97'" (click)="onShopSelect(s)">
+                            п. Зачаганск, ул. Монкеулы, 97
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> -->
+<div *ngIf="!mobile">
+    <div class="wrapper" [ngStyle]="{'transform': (!isSidebarVisible) ? 'translateX(-' + innerWidth + 'px)' : 'translateX(' + 0 + 'px)'}">
+        <div class="content">
+            <div class="card">
+                <div class="subtitle_wrapper">
+                    <div class="subtitle" *ngIf="lang == 'rus'" (click)="selected = false">Выбор магазина</div>
+                    <div class="subtitle" *ngIf="lang == 'kaz'" (click)="selected = false">Дүкенді таңаду</div>
+
+                    <!-- <div class="subtitle" [ngStyle]="{'opacity': (selected) ? '1' : '0'}">/ Выбор точки продажи</div> -->
+                    <div class="subtitle" *ngIf="lang == 'rus'" [ngStyle]="{'opacity': (selected) ? '1' : '0'}">/ Выбор точки продажи</div>
+
+                    <div class="subtitle" *ngIf="lang == 'kaz'" [ngStyle]="{'opacity': (selected) ? '1' : '0'}">/ Сату орнын таңаду</div>
+
+                </div>
+                <div class="divider" [ngStyle]="{'transform': (selected) ? 'translateX(' + 163 + 'px)' : 'translateX(' + 0 + 'px)'}"></div>
+                <div class="slider_wrapper" [ngStyle]="{'transform': (selected) ? 'translateX(-' + 450 + 'px)' : 'translateX(' + 0 + 'px)'}">
+                    <div class="slider" [ngStyle]="{'opacity': (selected) ? '0' : '1'}">
+                        <div class="title" *ngIf="lang == 'rus'">Добро пожаловать, {{username}}.<br>Какой магазин Вас интересует?</div>
+                        <div class="title" *ngIf="lang == 'kaz'">Қош келдіңіз, {{username}}.<br>Қандай дүкен іздеген едіңіз?</div>
+                        <div class="text" *ngIf="lang == 'rus'">Наша команда занимается доставкой товаров как из мини-маркета, так из аптеки. Пожалуйста, выберите интeресующий Вас магазин.</div>
+                        <div class="text" *ngIf="lang == 'kaz'">Біздің командамыз мини-маркет пен дәріханалардан тауар жеткізуімен айналысады. Сізді қызықтырған дүкенді таңдаңыз.</div>
+                        <div class="buttons">
+                            <div [ngStyle]="{'background': '#FE0000'}" (click)="onSelect('magaz')" (mouseover)="isPharm = false">
+                                <app-svg [name]="'magazWhite'"></app-svg>
+                            </div>
+                            <div [ngStyle]="{'background': '#00BE04'}" (click)="onSelect('pharm')" (mouseover)="isPharm = true">
+                                <app-svg [name]="'pharmWhite'"></app-svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider" [ngStyle]="{'opacity': (selected) ? '1' : '0'}">
+                        <div class="title" *ngIf="selectedShop == 'pharm' && lang == 'rus'">Выберите ближайшую торговую точку аптеки:</div>
+                        <div class="title" *ngIf="selectedShop == 'pharm' && lang == 'kaz'">Жакын орналасқан сату орнын таңдаңыз:</div>
+                        <div class="title" *ngIf="selectedShop != 'pharm' && lang == 'kaz'">Жакын орналасқан сату орнын таңдаңыз:</div>
+                        <div class="title" *ngIf="selectedShop != 'pharm' && lang == 'rus'">Выберите ближайшую торговую точку мини-маркета:</div>
+                        <div class="buttons-list">
+                            <div *ngFor="let s of shopsByType">
+                                <div class="buttons_item" (click)="onSelectShop(s)" [ngClass]="{'disabled' : s.name == 'ул. Сырыма Датова, 6а'}">{{s.name}}</div>
+                            </div>
+                        </div>
+                        <div [ngStyle]="{'justify-content': 'start', 'display': 'grid'}">
+                            <div class="back" (click)="selected = false">
+                                <span class="material-icons">
+                                    keyboard_backspace
+                                </span>
+                                <div *ngIf="lang == 'rus'">
+                                    Вернуться назад
+                                </div>
+                                <div *ngIf="lang == 'kaz'">
+                                    Қайта оралу
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="back close-sidebar" (click)="onCloseSidebar()" *ngIf="cat != null">
+                <span class="material-icons">
+                    keyboard_backspace
+                </span>
+                <div *ngIf="lang == 'rus'">
+                    Закрыть
+                </div>
+                <div *ngIf="lang == 'kaz'">
+                    Жабу
+                </div>
+            </div>
+            <div class="content-right_wrapper">
+
+                <div class="content_logo" [ngStyle]="{'opacity': (isPharm) ? '1' : '0'}">
+                    <app-svg [name]="'nazelPharmLogoMobile'"></app-svg>
+                </div>
+                <div class="content_logo" [ngStyle]="{'opacity': (isPharm) ? '0' : '1'}">
+                    <app-svg [name]="'nazelMagazLogoMobile'"></app-svg>
+                </div>
+                
+                <div class="content-right_text">
+                    <div class="content-right_text__title" [ngStyle]="{'padding-bottom': '2rem'}">Ваш любимый магазин в новом формате</div>
+                    <div class="content-right_text__text" *ngIf="isPharm">
+                        Мы работаем без перерывов и выходных! У нас Вы найдете все необходимые Вам препараты, которые помогут в оздоровлении и восстановлении вашего здоровья! А наша служба доставки привезет все необходимое по указанному вами адресу.
+                    </div>
+                    <div class="content-right_text__text" *ngIf="!isPharm">
+                        Мы работаем без перерывов и выходных! У нас Вы найдете все необходимые Вам продукты! Заказы собирают профессиональные менеджеры, тщательно проверяя срок годности товара, целостность и внешний вид упаковки. А наша служба доставки привезет все необходимое по указанному вами адресу.
+                    </div>
+                </div>
+                
+                <div class="content-right" [ngStyle]="{'background-image': (isPharm) ? 'url(../../assets/img/prehomeBackgroundPharm.jpg)' : ''}">
+                </div>
+            </div>
+        </div>
+        <div (click)="onCloseSidebar()" *ngIf="cat != null">
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="mobile">
+    <div class="mobile-wrapper" [ngStyle]="{'transform': (!isSidebarVisible) ? 'translateY(-' + innerHeight + 'px)' : 'translateY(' + 0 + 'px)'}">
+        <div class="mobile-content">
+            <div class="mobile-card">
+                <div class="subtitle_wrapper">
+                    <div class="subtitle" *ngIf="lang == 'rus'" (click)="selected = false" [ngStyle]="{'font-size': '14px'}">Выбор магазина</div>
+                    <div class="subtitle" *ngIf="lang == 'kaz'" (click)="selected = false" [ngStyle]="{'font-size': '14px'}">Дүкенді таңаду</div>
+                    <div class="subtitle" *ngIf="lang == 'rus'" [ngStyle]="{'opacity': (selected) ? '1' : '0', 'font-size': '14px'}">/ Выбор точки продажи</div>
+                    <div class="subtitle" *ngIf="lang == 'kaz'" [ngStyle]="{'opacity': (selected) ? '1' : '0', 'font-size': '14px'}">/ Сату орнын таңаду</div>
+                </div>
+                <div class="divider" [ngStyle]="{'transform': (selected) ? 'translateX(' + 143 + 'px)' : 'translateX(' + 0 + 'px)'}"></div>
+                <div class="mobile-slider_wrapper" [ngStyle]="{'width': innerWidth * 2 + 'px', 'transform': (selected) ? 'translateX(-' + (innerWidth - 32) + 'px)' : 'translateX(' + 0 + 'px)'}">
+                    <div class="mobile-slider" [ngStyle]="{'opacity': (selected) ? '0' : '1', 'width': innerWidth - 32 + 'px'}">
+                        <div class="title" *ngIf="lang == 'rus'">Добро пожаловать, {{username}}.<br>Какой магазин Вас интересует?</div>
+                        <div class="title" *ngIf="lang == 'kaz'">Қош келдіңіз, {{username}}.<br>Қандай дүкен іздеген едіңіз?</div>
+                        <div class="text" *ngIf="lang == 'rus'">Наша команда занимается доставкой товаров как из мини-маркета, так из аптеки. Пожалуйста, выберите интeресующий Вас магазин.</div>
+                        <div class="text" *ngIf="lang == 'kaz'">Біздің командамыз мини-маркет пен дәріханалардан тауар жеткізуімен айналысады. Сізді қызықтырған дүкенді таңдаңыз.</div>
+                        <div class="mobile-buttons">
+                            <div [ngStyle]="{'background': '#FE0000'}" (click)="onSelect('magaz')"><app-svg [name]="'magazWhite'"></app-svg></div>
+                            <div [ngStyle]="{'background': '#00BE04'}" (click)="onSelect('pharm')"><app-svg [name]="'pharmWhite'"></app-svg></div>
+                        </div>
+                    </div>
+                    <div class="mobile-slider" [ngStyle]="{'opacity': (selected) ? '1' : '0', 'width': innerWidth - 32 + 'px'}">
+                        <div class="title" *ngIf="selectedShop == 'pharm' && lang == 'rus'">Выберите ближайшую торговую точку аптеки:</div>
+                        <div class="title" *ngIf="selectedShop == 'pharm' && lang == 'kaz'">Жакын орналасқан сату орнын таңдаңыз:</div>
+                        <div class="title" *ngIf="selectedShop != 'pharm' && lang == 'kaz'">Жакын орналасқан сату орнын таңдаңыз:</div>
+                        <div class="title" *ngIf="selectedShop != 'pharm' && lang == 'rus'">Выберите ближайшую торговую точку мини-маркета:</div>
+                        <div class="mobile-buttons-list">
+                            <div *ngFor="let s of shopsByType">
+                                <div class="buttons_item" (click)="onSelectShop(s)" [ngClass]="{'disabled' : s.name == 'ул. Сырыма Датова, 6а'}">{{s.name}}</div>
+                            </div>
+                        </div>
+                        <div [ngStyle]="{'justify-content': 'start', 'display': 'grid'}">
+                            <div class="back" (click)="selected = false">
+                                <span class="material-icons">
+                                    keyboard_backspace
+                                </span>
+                                Назад
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="back close-sidebar" (click)="onCloseSidebar()" *ngIf="cat != null">
+                <span class="material-icons">
+                    keyboard_backspace
+                </span>
+                Закрыть
+            </div>
+        </div>
+        <div (click)="onCloseSidebar()" *ngIf="cat != null">
+        </div>
+    </div>
+</div>

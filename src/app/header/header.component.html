@@ -1,0 +1,47 @@
+<!-- <div *ngIf="selectToggle == true">
+    <div class="toggle" (click)="selectToggle = false">
+        <div class="toggle_content">
+            <div class="toggle_title">
+                Выберите город
+            </div>
+            <div *ngFor="let city of cities">
+                <div class="toggle_item" (click)="selectCity(city)">{{city}}</div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- toggle -->
+
+<div class="header" *ngIf="!home">
+    <div class="icon">
+        <div *ngIf="inner == true">
+            <i class="material-icons" (click)="back()">keyboard_arrow_left</i>
+        </div>
+        <div *ngIf="inner == false">
+            <i class="material-icons" (click)="back()"></i>
+        </div>
+    </div>
+    <div *ngIf="home != true">
+        <!-- <div class="header_logo">be online</div> -->
+        <app-svg *ngIf="cat == 'pharm'" [name]="'nazelPharmLogoMobile'"></app-svg>
+        <app-svg *ngIf="cat != 'pharm'" [name]="'nazelMagazLogoMobile'"></app-svg>
+    </div>
+    <!-- <div class="header_city" (click)="selectToggle = true"> -->
+        <!-- {{ selectedCity }} -->
+    <!-- </div> -->
+    <div class="header_login" routerLink="/login"></div>
+</div>
+
+<div class="home-header" *ngIf="home">
+    <app-svg *ngIf="cat == 'pharm'" [name]="'nazelPharmLogoMobile'"></app-svg>
+        <app-svg *ngIf="cat != 'pharm'" [name]="'nazelMagazLogoMobile'"></app-svg>
+    <div class="contacts">
+        <a href="tel:{{nearestShopPhone}}">
+            <app-svg [name]="'phone'"></app-svg>
+            <!-- <span class="material-icons">
+                call
+            </span> -->
+        </a>
+    </div>
+</div>

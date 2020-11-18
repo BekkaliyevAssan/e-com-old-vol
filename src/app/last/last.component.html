@@ -1,0 +1,24 @@
+<app-header [inner]="true"></app-header>
+<div class="last">
+    <div class="last_content" *ngIf="lang == 'rus'">
+        <app-svg [name]="'personImage1'"></app-svg>
+        <!-- <i class="material-icons">check_circle</i> -->
+        <div class="last_title">Благодарим за покупку!</div>
+        <div class="last_text">Уже готовим Ваш заказ. Наш оператор скоро свяжется с вами.</div>
+        <div class="button">
+            <app-button *ngIf="cat == 'pharm'" (click)="goToCategory()" [name]="'Вернуться к покупкам'" [type]="'primary'" [cat]="'pharm'"></app-button>
+            <app-button *ngIf="cat != 'pharm'" (click)="goToCategory()" [name]="'Вернуться к покупкам'" [type]="'primary'"></app-button>
+        </div>
+    </div>
+
+    <div class="last_content" *ngIf="lang == 'kaz'">
+        <app-svg [name]="'personImage1'"></app-svg>
+        <!-- <i class="material-icons">check_circle</i> -->
+        <div class="last_title">Бізді таңдағаныңыз үшін рахмет!</div>
+        <div class="last_text">Тапсырысыңызда дайындап бастадық. Біздің оператор сізбен хабарласады.</div>
+        <div class="button">
+            <app-button *ngIf="cat == 'pharm'" (click)="goToCategory()" [name]="'Вернуться к покупкам'" [type]="'primary'" [cat]="'pharm'"></app-button>
+            <app-button *ngIf="cat != 'pharm'" (click)="goToCategory()" [name]="'Вернуться к покупкам'" [type]="'primary'"></app-button>
+        </div>
+    </div>
+</div>

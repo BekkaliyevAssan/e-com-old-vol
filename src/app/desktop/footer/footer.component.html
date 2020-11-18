@@ -1,0 +1,14 @@
+<div class="footer-wrapper" [ngStyle]="{'margin-bottom': (mobile) ? '55px' : '0'}">
+    
+    <div class="lang">
+        <span *ngIf="language == 'rus'">Выбор языка:</span>
+        <span *ngIf="language == 'kaz'">Тіл таңдау:</span>
+        <div class="lang-item" [ngStyle]="{'background' : (selectedLang == 'rus') ? '#626262' : 'rgb(75, 75, 75)'}" (click)="onSelectLang('rus')">🇷🇺</div>
+        <div class="lang-item" [ngStyle]="{'background' : (selectedLang == 'kaz') ? '#626262' : 'rgb(75, 75, 75)'}" (click)="onSelectLang('kaz')">🇰🇿</div>
+    </div>
+
+    <div class="footer">
+        TOO NAZEL MARKET<br>
+        БИН 180740000515
+    </div>
+</div>

@@ -1,0 +1,261 @@
+<app-header *ngIf="mobile"></app-header>
+<div *ngIf="mobile">
+  <div class="title" *ngIf="lang == 'rus'">Корзина</div>
+  <div class="title" *ngIf="lang == 'kaz'">Себет</div>
+  <div class="mobile_subtitle" *ngIf="lang == 'rus'">
+    Важно знать
+  </div>
+  <div class="mobile_subtitle" *ngIf="lang == 'kaz'">
+    Маңызды
+  </div>
+  <div class="subtitle">
+
+    <div *ngIf="finalPrice < 3000">
+      При заказе от 5 000 ₸ - <strong>Бесплатная доставка. </strong>
+      <a class="redirect" routerLink="/info/delivery-info"
+      [ngStyle]="{'color' : (cat == 'pharm') ? '#00BE04' : 'red'}">Узнать подробнее</a>
+    </div>
+    <div *ngIf="finalPrice >= 3000 && finalPrice < 5000">
+      При заказе от 5 000 ₸ - <strong>Бесплатная доставка.</strong>
+      <br>
+      Наберите товар на <strong>{{5000 - finalPrice}} ₸</strong> и мы доставляем ваш заказ бесплатно.
+      <a class="redirect" routerLink="/info/delivery-info"
+      [ngStyle]="{'color' : (cat == 'pharm') ? '#00BE04' : 'red'}">Узнать подробнее</a>
+      
+    </div>
+    <div *ngIf="finalPrice >= 5000">
+      Ого, какой большой заказ. Такому клиенту <strong>бесплатная доставка</strong> гарантирована.
+      <a class="redirect" routerLink="/info/delivery-info"
+      [ngStyle]="{'color' : (cat == 'pharm') ? '#00BE04' : 'red'}">Узнать подробнее</a>
+    </div>
+
+    <div *ngIf="finalPrice < 5000" [ngStyle]="{'margin-top': '1rem'}">
+      <div class="warning">Цена доставки может варьироваться индивидуально в зависимости от вашего адреса.
+      </div>
+      <a class="redirect" routerLink="/info/delivery-info"
+        [ngStyle]="{'color' : (cat == 'pharm') ? '#00BE04' : 'red', 'font-size': '14px'}">Узнать
+        подробнее</a>
+    </div>
+
+    <!-- <div *ngIf="finalPrice < 2000" [ngStyle]="{'margin-top': '1rem', 'font-weight': '300'}">
+      Минимальная сумма заказа: <strong>2000 ₸</strong>
+    </div> -->
+  </div>
+    
+  <div *ngIf="productsAmount != 0 && lang == 'rus'" class="mobile_subtitle">
+    Ваш чек
+  </div>
+  <div *ngIf="productsAmount != 0 && lang == 'kaz'" class="mobile_subtitle">
+    Сіздің чегіңіз
+  </div>
+  <div class="mobile_total" *ngIf="productsAmount != 0">
+    <div class="desk_total__item">
+      Заказ на: <span class="dotted"></span><strong>{{finalPrice}} ₸</strong>
+    </div>
+    <div class="desk_total__item" *ngIf="finalPrice >= 5000" [ngStyle]="{'opacity' : '0.3'}">
+      Доставка от: <span class="dotted"></span><strong>300 ₸</strong>
+    </div>
+    <div class="desk_total__item" *ngIf="finalPrice < 5000" [ngStyle]="{'opacity' : '1'}">
+      Доставка от: <span class="dotted"></span><strong>300 ₸</strong>
+    </div>
+    <div class="desk_total__count" *ngIf="finalPrice < 5000">Итого: {{finalPrice + 300}} ₸</div>
+    <div class="desk_total__count" *ngIf="finalPrice >= 5000">Итого: {{finalPrice}} ₸</div>
+  </div>
+
+  <div *ngIf="productsAmount != 0">
+    <div class="mobile_subtitle" *ngIf="lang == 'rus'">
+      Список товаров
+    </div>
+    <div class="mobile_subtitle" *ngIf="lang == 'kaz'">
+      Тауар тізімі
+    </div>
+    <div class="cart">
+      <div *ngFor="let p of products">
+        <app-product-card [product]="p" [type]="'def'"></app-product-card>
+      </div>
+    </div>
+    <div class="next">
+      <div class="total" *ngIf="finalPrice < 5000">
+        Итого: {{finalPrice + 300}} ₸
+      </div>
+      <div class="total" *ngIf="finalPrice >= 5000">
+        Итого: {{finalPrice}} ₸
+      </div>
+      <div [ngStyle]="{'opacity': (finalPrice < 2000) ? '0.3' : '1'}" *ngIf="finalPrice < 2000">
+        <app-button *ngIf="cat == 'pharm'" [name]="'Далее'" [type]="'secondary'" [cat]="'pharm'">
+        </app-button>
+        <app-button *ngIf="cat != 'pharm'" [name]="'Далее'" [type]="'secondary'"></app-button>
+      </div> 
+      <div [ngStyle]="{'opacity': (finalPrice < 2000) ? '0.3' : '1'}" *ngIf="finalPrice >= 2000">
+        <app-button routerLink="check" *ngIf="cat == 'pharm'" [name]="'Далее'" [type]="'secondary'" [cat]="'pharm'">
+        </app-button>
+        <app-button routerLink="check" *ngIf="cat != 'pharm'" [name]="'Далее'" [type]="'secondary'"></app-button>
+      </div> 
+    </div>
+
+    <div class="next-disabled" *ngIf="finalPrice < 2000" [ngStyle]="{'background': (cat == 'pharm') ? '#00BE04' : 'red'}">
+      <strong>Минимальная сумма заказа: 2000 ₸</strong>
+      <div [ngStyle]="{'font-size': '14px'}">
+        Пожалуйста, добавьте еще немного.
+      </div>
+    </div>
+  </div>
+  <div *ngIf="productsAmount == 0">
+    <div class="message" [ngStyle]="{'margin-top': '4rem'}">
+      <div class="message_empty" *ngIf="lang == 'rus'">
+        Корзина пока пуста :(
+      </div>
+      <div class="message_empty" *ngIf="lang == 'kaz'">
+        Себет әлі бос :(
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ----------------------------------------------------------------- -->
+<div *ngIf="!mobile" class="desk_wrapper">
+  <div class="desk_title" *ngIf="lang == 'rus'">Корзина</div>
+  <div class="desk_title" *ngIf="lang == 'kaz'">Себет</div>
+  <div class="desk_card-wrapper">
+
+    <div *ngIf="productsAmount != 0">
+      <div class="desk_next-wrapper">
+        <div class="desk_next">
+
+          <div class="desk_total__wrapper">
+            <div class="desk_total">
+              <div [ngStyle]="{'font-weight': 'bold'}" *ngIf="lang == 'rus'">Ваш чек</div>
+              <div [ngStyle]="{'font-weight': 'bold'}" *ngIf="lang == 'kaz'">Сіздің чегіңіз</div>
+
+              <div class="desk_total__item">
+                Заказ на: <span class="dotted"></span><strong>{{finalPrice}} ₸</strong>
+              </div>
+              <div class="desk_total__item" *ngIf="finalPrice >= 5000" [ngStyle]="{'opacity' : '0.3'}">
+                Доставка от: <span class="dotted"></span><strong>300 ₸</strong>
+              </div>
+              <div class="desk_total__item" *ngIf="finalPrice < 5000" [ngStyle]="{'opacity' : '1'}">
+                Доставка от: <span class="dotted"></span><strong>300 ₸</strong>
+              </div>
+              <div class="desk_total__count" *ngIf="finalPrice < 5000">Итого: {{finalPrice + 300}} ₸</div>
+              <div class="desk_total__count" *ngIf="finalPrice >= 5000">Итого: {{finalPrice}} ₸</div>
+              <!-- <button routerLink="check">Продолжить</button> -->
+              <div class="button">
+                <div class="left" (click)="backClicked()">
+                  <span class="material-icons">
+                    keyboard_backspace
+                  </span>
+                  <div *ngIf="lang == 'rus'">
+                    Вернуться к покупкам
+                  </div>
+                  <div *ngIf="lang == 'kaz'">
+                    Cатып алуға қайта оралу
+                  </div>
+                </div>
+                <div class="right">
+                  <div [ngStyle]="{'opacity': (finalPrice < 2000) ? '0.3' : '1'}" *ngIf="finalPrice < 2000">
+
+                    <app-button [name]="'Оформить заказ'" *ngIf="cat == 'pharm' && lang == 'rus'" [type]="'primary'"
+                    [cat]="'pharm'"></app-button>
+                    <app-button [name]="'Тапсырыс'" *ngIf="cat == 'pharm' && lang == 'kaz'" [type]="'primary'"
+                    [cat]="'pharm'"></app-button>
+                    <app-button [name]="'Оформить заказ'" *ngIf="cat != 'pharm' && lang == 'rus'" [type]="'primary'">
+                    </app-button>
+                    <app-button [name]="'Тапсырыс '" *ngIf="cat != 'pharm' && lang == 'kaz'" [type]="'primary'">
+                    </app-button>
+                  </div>
+                  <div [ngStyle]="{'opacity': (finalPrice < 2000) ? '0.3' : '1'}" *ngIf="finalPrice >= 2000">
+
+                    <app-button routerLink="check" [name]="'Оформить заказ'" *ngIf="cat == 'pharm' && lang == 'rus'" [type]="'primary'"
+                    [cat]="'pharm'"></app-button>
+                    <app-button routerLink="check" [name]="'Тапсырыс'" *ngIf="cat == 'pharm' && lang == 'kaz'" [type]="'primary'"
+                    [cat]="'pharm'"></app-button>
+                    <app-button routerLink="check" [name]="'Оформить заказ'" *ngIf="cat != 'pharm' && lang == 'rus'" [type]="'primary'">
+                    </app-button>
+                    <app-button routerLink="check" [name]="'Тапсырыс'" *ngIf="cat != 'pharm' && lang == 'kaz'" [type]="'primary'">
+                    </app-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="desk_text__wrapper">
+              <div class="desk_text__wrapper___inner">
+                <div [ngStyle]="{'font-weight': 'bold'}" *ngIf="lang == 'rus'">Важно знать</div>
+                <div [ngStyle]="{'font-weight': 'bold'}" *ngIf="lang == 'kaz'">Білу маңызды</div>
+                <div class="desk_total__left">
+                  <div class="toggle" [ngStyle]="{'background' : (cat == 'pharm') ? '#00BE04' : 'red'}"></div>
+
+                  <div *ngIf="finalPrice < 3000" class="desk_add">
+                    При заказе от 5 000 ₸ - <strong>Бесплатная доставка. </strong>
+                    <a class="redirect" routerLink="/info/delivery-info"
+                      [ngStyle]="{'color' : (cat == 'pharm') ? '#00BE04' : 'red'}">Узнать подробнее</a>
+                  </div>
+                  <div *ngIf="finalPrice >= 3000 && finalPrice < 5000" class="desk_add">
+                    При заказе от 5 000 ₸ - <strong>Бесплатная доставка.</strong>
+                    Наберите товар на <strong>{{5000 - finalPrice}} ₸</strong> и мы доставляем ваш заказ бесплатно.
+                    <a class="redirect" routerLink="/info/delivery-info"
+                      [ngStyle]="{'color' : (cat == 'pharm') ? '#00BE04' : 'red'}">Узнать подробнее</a>
+                  </div>
+                  <div *ngIf="finalPrice >= 5000" class="desk_add">
+                    Ого, какой большой заказ. Такому клиенту <strong>бесплатная доставка</strong> гарантирована.
+                    <a class="redirect" routerLink="/info/delivery-info"
+                      [ngStyle]="{'color' : (cat == 'pharm') ? '#00BE04' : 'red'}">Узнать подробнее</a>
+                  </div>
+
+                  <div *ngIf="finalPrice < 5000">
+                    <div class="warning">Цена доставки может варьироваться индивидуально в зависимости от вашего адреса.
+                    </div>
+                    <a class="redirect" routerLink="/info/delivery-info"
+                      [ngStyle]="{'color' : (cat == 'pharm') ? '#00BE04' : 'red', 'font-size': '14px'}">Узнать
+                      подробнее</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+
+        <div class="desk-toggle" [ngStyle]="{'background': (cat == 'pharm') ? '#00BE04' : 'red'}" *ngIf="finalPrice < 2000">
+          <strong>Минимальная сумма заказа: 2000 ₸</strong>
+<div [ngStyle]="{'font-size': '14px'}">
+  Пожалуйста, добавьте еще немного продуктов в корзину.
+</div>
+        </div>
+
+      </div>
+    </div>
+    <div *ngIf="productsAmount != 0" [ngStyle]="{'font-weight': 'bold'}">Список товаров({{productsAmount}})</div>
+
+    <div class="desk_cart" *ngIf=" productsAmount != 0">
+      <div>
+        <div class="desk_cart__label">
+          <p></p>
+          <p>Наименование</p>
+          <p>Цена</p>
+          <p>Кол-во</p>
+          <p>Сумма</p>
+        </div>
+      </div>
+      <div class="desk_product__list">
+        <div *ngFor="let p of products">
+          <div class="desk_product__item">
+            <app-product-card [product]="p" [type]="'cart'"></app-product-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="productsAmount == 0">
+    <div class="desk_message">
+      <div class="message_empty" *ngIf="lang == 'rus'">
+        Корзина пока пуста :(
+      </div>
+      <div class="message_empty" *ngIf="lang == 'kaz'">
+        Себет әлі бос :(
+      </div>
+    </div>
+  </div>
+</div>

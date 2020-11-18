@@ -1,0 +1,257 @@
+<app-header *ngIf="mobile"></app-header>
+<div *ngIf="mobile" class="mobile-search-wrapper">
+  <div class="mobile-title" *ngIf="lang == 'rus'">Поиск</div>
+  <div class="mobile-title" *ngIf="lang == 'kaz'">Іздеу</div>
+  <div class="search">
+    <input type="text" placeholder="Хочу найти..."
+    [(ngModel)]="searchVal" name="searchVal"
+    >
+    <i class="material-icons">search</i>
+  </div>
+  <div class="sr" *ngIf="searchRes.length > 0">
+    <div class="mobile-title-header">
+      <div class="mobile-subtitle" *ngIf="lang == 'rus'">Список продуктов</div>
+      <div class="mobile-subtitle" *ngIf="lang == 'kaz'">Тауар тізімі</div>
+      <span routerLink="/search/mobile-search-seeall/{{searchVal}}" *ngIf="lang == 'rus'">Смотреть все</span>
+      <span routerLink="/search/mobile-search-seeall/{{searchVal}}" *ngIf="lang == 'kaz'">Нақтырақ</span>
+    </div>
+    <div class="mobile-search_wrapper">
+      <div class="mobile_search">
+        <div *ngFor="let res of searchRes">
+          <div class="mobile-search_item">
+            <app-product-card [type]="'def'" [product]="res"></app-product-card>        
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="subcategoryList.length > 0 || supcategoryList.length > 0 && lang == 'rus'" class="mobile-subtitle">Результат поиска по категориям({{subcategoryList.length + supcategoryList.length}})</div>
+  <div *ngIf="subcategoryList.length > 0 || supcategoryList.length > 0 && lang == 'kaz'" class="mobile-subtitle">Категория бойынша табылған жинақ({{subcategoryList.length + supcategoryList.length}})</div>
+  <div *ngIf="subcategoryList.length > 0">
+    <div class="subcategory-list">
+      <div *ngFor="let sub of subcategoryList">
+        <div class="subcategory-list_item" (click)="onNavigate(sub.name, sub.category)">
+          <i class="material-icons">
+            pets
+          </i>
+          <span>
+            {{sub.name}}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="supcategoryList.length > 0" class="subcategory-list" [ngStyle]="{'border-bottom': '1px solid #fff'}">
+    <div *ngFor="let sup of supcategoryList">
+      <div class="subcategory-list_item" (click)="onNavigateSup(sup.name, sup.subcategory, sup.category)">
+        <i class="material-icons">
+          support
+        </i>
+        <span>
+          {{sup.name}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="searchVal.length > 2 && supcategoryList.length < 1 && subcategoryList.length < 1 && searchRes.length < 1" class="mobile-warning">
+    <span *ngIf="lang == 'rus'">По запросу «{{searchVal}}» не нашлось результатов.</span>
+    <span *ngIf="lang == 'kaz'">Сіздің «{{searchVal}}» сауалыңыз бойынша тауар бабылмады.</span>
+    <br/>
+    <span [ngStyle]="{'font-size': '14px', 'color': '#505050'}" *ngIf="lang == 'rus'">Попробуйте ввести другой запрос.</span>
+    <span [ngStyle]="{'font-size': '14px', 'color': '#505050'}" *ngIf="lang == 'kaz'">Өзге сұратым еңгізіп көріңіз.</span>
+  </div>
+  
+  <div class="mobile-subtitle" *ngIf="lang == 'rus'">Популярные запросы</div>
+  <div class="mobile-subtitle" *ngIf="lang == 'kaz'"> Cұраныста</div>
+  <div class="popular-query-list" [@fadeIn] *ngIf="isPopularLoaded">
+    <div *ngFor=" let p of popularQueries">
+      <div class="popular-query-list_item" (click)="onNavigate(p.name, p.category)">
+        <span>
+          {{p.name}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="skeleton" *ngIf="!isPopularLoaded">
+    <div class="skeleton_item-mobile" [ngStyle]="{'width': '80%'}"></div>
+    <div [ngStyle]="{'display': 'grid', 'grid-template-columns': '2fr 3fr', 'grid-gap': '0.6rem'}">
+      <div class="skeleton_item-mobile" [ngStyle]="{'width': '100%'}"></div>
+      <div class="skeleton_item-mobile" [ngStyle]="{'width': '100%'}"></div>
+    </div>
+    <div class="skeleton_item-mobile" [ngStyle]="{'width': '50%'}"></div>
+    <div class="skeleton_item-mobile" [ngStyle]="{'width': '60%'}"></div>
+  </div>
+  
+  <div class="mobile-subtitle" [ngStyle]="{'margin-top': '0.4rem'}" *ngIf="lang == 'rus'">Мы рекомендуем</div>
+  <div class="mobile-subtitle" [ngStyle]="{'margin-top': '0.4rem'}" *ngIf="lang == 'kaz'">Біздің ұсынысымыз</div>
+  <div class="mobile-search_wrapper" [@fadeIn] *ngIf="isPopularLoaded">
+    <div class="mobile_search">
+      <div *ngFor="let res of suggestion">
+        <div class="mobile-search_item">
+          <app-product-card [type]="'def'" [product]="res"></app-product-card>        
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="skeleton_item" *ngIf="!isPopularLoaded">
+    <div class="ski_img"></div>
+    <div class="ski_name">
+        <div [ngStyle]="{'width': '70%'}"></div>
+        <div></div>
+    </div>
+    <div class="ski_price"></div>
+    <div class="ski_button">
+        <div></div>
+        <div [ngStyle]="{'background': '#acacac'}"></div>
+    </div>
+</div>
+  
+  <div *ngIf="!focused">
+    <app-navbar></app-navbar>
+  </div>
+</div>
+
+<!-- ----------------------------------- -->
+
+<div *ngIf="!mobile">
+<div class="navbar">
+  <div class="navbar-top_wrapper">
+    <div class="navbar-top">
+      <!-- <div class="switch" *ngIf="cat == 'pharm'" (click)="selectShop('magaz')">Перейти в мини-маркет</div>
+        <div class="switch" *ngIf="cat != 'pharm'" (click)="selectShop('pharm')">Перейти в аптеку</div> -->
+
+        <div class="switch" (click)="toggleSidebar()">
+          Сменить магазин
+        </div>
+            
+
+      <div class="phone">
+        <span>
+          {{nearestShopName}}
+        </span>
+        <!-- | -->
+        <span>
+          {{nearestShopPhone}}
+        </span>
+      </div>
+
+      <div class="email">
+        nazel.help@gmail.com
+      </div>
+
+      <div class="auth">
+        <div class="login" routerLink="/login">
+          Войти
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar-wrapper">
+
+    <div class="navbar_inner">
+      <div class="logo" routerLink="/home">
+        <div *ngIf="cat == 'pharm'">
+          <app-svg [name]="'nazelPharmLogoMobile'"></app-svg>
+        </div>
+        <div *ngIf="cat != 'pharm'">
+          <app-svg [name]="'nazelMagazLogoMobile'"></app-svg>
+        </div>
+      </div>
+      <div class="desk_search"><input type="text"
+          [(ngModel)]="searchVal" name="searchVal" placeholder="Найти продукт">
+        <div *ngIf="cat == 'pharm'">
+          <i routerLinkActive="active-pharm" class="material-icons pharm">search</i>
+        </div>
+        <div *ngIf="cat != 'pharm'">
+          <i routerLinkActive="active" class="material-icons">search</i>
+        </div>
+      </div>
+      <div class="routes">
+        <div class="routes_item" routerLink="/home" routerLinkActive="active">Главная</div>
+        <div class="routes_item" routerLink="/category" routerLinkActive="active">Каталог</div>
+        <div class="routes_item" routerLink="/cart" routerLinkActive="active">Корзина
+          <!-- <div *ngIf="badge.length > 0"> -->
+            <div class="badge">{{badge}}</div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </div> -->
+<div class="desk_sr__wrapper">
+  <div class="desk_sr">
+    <div class="desk_title">
+      Поиск
+    </div>
+    <!-- <div class="desk_sr_cnt">
+      <div *ngIf="searchVal != ''">
+        По вашему запросу {{searchVal}} мы нашли продуктов: {{searchRes.length}} шт.
+      </div>
+      <div *ngIf="searchVal == ''">
+        Начните писать, что Вы искали
+      </div>
+    </div> -->
+    <div class="desk_res__wrapper" *ngIf="searchRes.length > 0">
+      <div class="desk_res__title">
+        <div class="mobile-subtitle">Список продуктов</div>
+        <span routerLink="/search/mobile-search-seeall/{{searchVal}}">Смотреть все</span>
+      </div>
+      <div class="desk_res">
+        <div *ngFor="let res of searchRes">
+          <app-product-card [type]="'def'" [product]="res"></app-product-card>
+        </div>
+      </div>
+    </div>
+
+    <div class="desk-category">
+      <div *ngIf="subcategoryList.length > 0 || supcategoryList.length > 0" class="mobile-subtitle">Результат поиска по категориям({{subcategoryList.length + supcategoryList.length}})</div>
+      <div class="desk-category_subcategory">
+        <div class="desk-category_subcategory__list" *ngIf="subcategoryList.length > 0">
+          <div *ngFor="let sub of subcategoryList">
+            <div class="desk-subcategory-list_item" (click)="onNavigate(sub.name, sub.category)">
+              <i class="material-icons">
+                pets
+              </i>
+              <span>
+                {{sub.name}}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="desk-category_supcategory__list">
+          <div *ngFor="let sup of supcategoryList">
+            <div class="desk-subcategory-list_item" (click)="onNavigateSup(sup.name, sup.subcategory, sup.category)">
+              <i class="material-icons">
+                support
+              </i>
+              <span>
+                {{sup.name}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+    <div class="desk_popular">
+      <div class="mobile-subtitle">Популярные запросы</div>
+      <div class="desk_popular__list">
+        <div *ngFor="let p of popularQueries">
+          <div class="desk_popular__list___item" (click)="onNavigate(p.name, p.category)">{{p.name}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="desk_sugg">
+      <div class="mobile-subtitle">Мы рекомендуем</div>
+       <div class="desk_res">
+         <div *ngFor="let s of suggestion">
+            <app-product-card [type]="'def'" [product]="s"></app-product-card>  
+         </div>
+       </div>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,18 @@
+<!-- <app-header [inner]="true"></app-header> -->
+<div class="login-wrapper">
+    <div class="login">
+        <div class="title">Добро пожаловать!</div>
+        <div class="login_item">
+            <div class="label">E-mail</div>
+            <input type="email" name="email" [(ngModel)]="loginModel.email">
+        </div>
+        <div class="login_item">
+            <div class="label">Пароль</div>
+            <input type="password" name="password" [(ngModel)]="loginModel.password">
+        </div>
+
+        <button (click)="onSubmit()">Войти</button>
+        <div class="signup">Еще не зарегистрированы?</div>
+    </div>
+</div>
+    <!-- <app-navbar [focused]="false"></app-navbar> -->

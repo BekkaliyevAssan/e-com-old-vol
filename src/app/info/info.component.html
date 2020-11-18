@@ -1,0 +1,17 @@
+<app-header [inner]="true"></app-header>
+
+<div class="info-wrapper">
+    <div class="info">
+        <div>
+            <div class="sidebar">
+                <div class="sidebar-title">Содержание</div>
+                <div class="sidebar_item" routerLink="/info/">Персональные данные</div>
+                <div class="sidebar_item" routerLink="/info/delivery-info">Условия доставки</div>
+                <!-- <div class="sidebar_item">Персональные данные</div> -->
+            </div>
+        </div>
+        <div>
+        <router-outlet></router-outlet>
+    </div>
+    </div>
+</div>

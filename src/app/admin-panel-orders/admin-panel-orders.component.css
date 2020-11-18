@@ -1,0 +1,170 @@
+p {
+    margin: 0;
+}
+.orders {
+    display: grid;
+    grid-gap: 1rem;
+}
+.orders_item {
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid;
+    background: #Fff;
+}
+.orders_item__header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: 1rem;
+    align-items: center;
+}
+.personal_info {
+    display: grid;
+    grid-template-rows: repeat(auto, auto);
+    grid-gap: 1fr;
+}
+.personal_info__top {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding-bottom: 1rem;
+    grid-gap: 1rem;
+}
+.personal_info__bottom {
+    grid-gap: 1rem;
+    padding: 1rem 0;
+    border-top: 1px solid rgb(202, 202, 202);
+    border-bottom: 1px solid rgb(202, 202, 202);
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+.personal_comment {
+    padding: 1rem 0;
+}
+.personal-calc {
+    display: grid;
+    justify-items: end;
+    grid-gap: 1rem;
+    /* background: rgb(243, 243, 243); */
+    align-self: flex-start;
+    /* padding: 1rem;
+    margin-top: -0.5rem;
+    margin-right: -0.5rem;
+    border-radius: 5px; */
+}
+.orders_item__header p,
+.p {
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 1fr;
+    grid-gap: 10px;
+    font-size: 14px;
+}
+.total {
+    font-size: 16px !important;
+    font-weight: bold;
+    text-align: end;
+}
+.total span {
+    display: grid;
+    align-self: flex-start;
+    margin-top: -2px;
+}
+.orders_item__header span {
+    color: #868686;
+}
+.orders_item__body {
+    margin-top: 1rem;
+    /* border-top: 1px solid #7c7c7c; */
+    padding-top: 1rem;
+    background: rgb(247, 247, 247);
+    /* grid-gap: 1rem; */
+    border-radius: 10px;
+    display: grid;
+}
+.orders_item__body___item {
+    padding: 1rem;
+    /* border-radius: 5px; */
+    border-top: 1px solid rgb(156, 156, 156);
+    /* background: rgba(184, 184, 255, 0.096); */
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: 2fr repeat(3, 1fr);
+}
+.orders_item__body___item_title span {
+    font-size: 13px;
+    color: blue;
+}
+.oreders_item__body___label {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    grid-gap: 2rem;
+    padding: 0 1rem;
+    padding-bottom: 1rem;
+}
+.oreders_item__body___label p {
+    font-size: 13px;
+    color: #868686;
+}
+.order_item__wrapper {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: 1rem;
+}
+.status {
+    display: grid;
+    grid-gap: 1rem;
+    align-content: flex-start;
+    margin-top: 1rem;
+}
+.status_item {
+    font-size: 13px;
+    display: grid;   
+    color: #4d4d4d;
+    cursor: pointer;
+}
+.success:hover {
+    color: rgba(3, 204, 3, 0.288);
+}
+.call:hover {
+    color: rgba(255, 187, 0, 0.52);
+}
+.inProg:hover {
+    color: rgba(0, 0, 255, 0.308);
+}
+.canceled:hover {
+    color: rgba(255, 0, 0, 0.329);
+}
+.orders_item__header___status .success {
+    padding: 0 1rem;
+    border-radius: 3px;
+    background: rgba(3, 204, 3, 0.288);
+}
+.orders_item__header___status .call {
+    padding: 0 1rem;
+    border-radius: 3px;
+    background: rgba(255, 187, 0, 0.52);
+}
+.orders_item__header___status .inProg {
+    padding: 0 1rem;
+    border-radius: 3px;
+    background: rgba(0, 0, 255, 0.308);
+}
+.orders_item__header___status .canceled {
+    padding: 0 1rem;
+    border-radius: 3px;
+    background: rgba(255, 0, 0, 0.329);
+}
+.orders_item__header___status span {
+    color: #000;
+}
+.orders_item__header___status div div {
+    font-size: 14px;
+}
+.personal_comment-delivery-type {
+    background: #FFD800;
+    padding: 0 1rem;
+    font-weight: 500;
+    border-radius: 9px;
+    color: #000 !important;
+    display: grid;
+    justify-self: start;
+}

@@ -1,0 +1,131 @@
+.header {
+    height: 52px;
+    background: #fff;
+    display: grid;
+    grid-template-columns: 24px 1fr auto auto;
+    position: fixed;
+    top: 0;
+    align-items: center;
+    left: 0;
+    width: 100vw;
+    grid-gap: 1rem;
+    z-index: 30;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+/* .homeHeader {
+    background: none;
+    height: 52px;
+    display: grid;
+    grid-template-columns: 24px 1fr auto auto;
+    position: absolute;
+    top: 0;
+    align-items: center;
+    left: 0;
+    width: 100%;
+    grid-gap: 1rem;
+    z-index: 22;
+} */
+
+.toggle {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(255, 255, 255, 0.76);
+    top: 0;
+    left: 0;
+    transition: 0.2s;
+    z-index: 10;
+}
+.toggle_content {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 20;
+}
+.toggle_title {
+    height: 50px;
+    padding: 0 1rem;
+    align-items: center;
+    display: grid;
+    background: #F7F7F7;
+}
+.toggle_item {
+    height: 50px;
+    display: grid;
+    align-items: center;
+    padding: 0 1rem;
+    background: #fff;
+    border-top: 1px solid rgb(228, 228, 228);
+}
+.toggle_item:active {
+    background: #F7F7F7;
+}
+
+
+.header_logo {
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    display: grid;
+    align-items: center;
+}
+.header_city {
+    font-size: 12px;
+    display: grid;
+    align-items: center;
+    line-height: 20px;
+    align-content: center;
+    color: #0047FF;
+    text-decoration: underline;
+    justify-content: end;
+}
+.header_login {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin-right: 1rem;
+    background: rgba(163, 12, 233, 0);
+    align-self: center;
+    display: grid;
+    justify-self: end;
+}
+i {
+    display: grid;
+    align-self: center;
+    margin-left: 0.5rem;
+    margin-top: 2px;
+}
+
+.home-header {
+    z-index: 2;
+    /* position: relative; */
+    margin-top: -52px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 1fr;
+    background: #F8F8F8;
+    /* position: fixed;
+    left: 0;
+    
+    top: 0; */
+}
+.contacts {
+    display: grid;
+    justify-self: end;
+    align-items: center;
+    background: #eeeeee;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+}
+.contacts a {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    text-decoration: none;
+    color: #5F5F5F;
+}
+.contacts span {
+    font-size: 17px;
+}

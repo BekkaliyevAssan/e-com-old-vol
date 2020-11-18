@@ -1,0 +1,48 @@
+.cat {
+    padding: 1rem
+}
+.title {
+    font-weight: bold;
+    font-size: 20px;
+}
+.subcat {
+    margin-top: 1rem;
+}
+.subcat_item {
+    height: 40px;
+    /* border-bottom: 1px solid #dedede; */
+    display: grid;
+    align-items: center;
+    font-weight: 500;
+}
+.subcat_item {
+    min-height: 40px;
+    /* padding: 0 1rem; */
+    display: grid;
+    align-items: center;
+    font-weight: 500;
+    /* border-bottom: 1px solid rgb(228, 228, 228); */
+    grid-template-columns: auto 1fr auto;
+}
+.subcat_item div {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.subcat_item span {
+    display: grid;
+    color: #b3b3b3;
+    justify-self: end;
+    justify-items: end;
+}
+.age-badge {
+    margin-left: 1rem;
+    padding: 0 0.5rem;
+    font-weight: 500;
+    color: #000;
+    border-radius: 9px;
+    display: grid;
+    align-self: center;
+    background: #FFD800;
+    justify-self: start;
+}

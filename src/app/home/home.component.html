@@ -1,0 +1,339 @@
+<div *ngIf="mobile">
+  <app-header [home]="true"></app-header>
+  <!-- <div class="warning">
+    <span [ngStyle]="{'font-weight': 'bold', 'font-size': '16px'}">Внимание!</span>
+    <br>
+    Всвязи с временными ограничениями
+Мы принимаем заказы с 09:00 до 21:00
+  </div> -->
+  <div class="home" [@fadeIn]>
+    <div class="home_header">
+      <div *ngIf="cat == 'pharm'">
+        <div class="hh_inner">
+          <div class="hh_logo">
+            <!-- <app-svg [name]="'nazelPharmMobile'"></app-svg> -->
+            <div class="mobile-addlogo">
+            <app-svg [name]="'nazelPharmAddMobile'"></app-svg>
+            </div>
+          </div>
+          <div class="hh_buttons">
+            <app-button routerLink="/category" *ngIf="lang == 'rus'" [name]="'Смотреть каталог'" [cat]="'pharm'" [type]="'secondary'">
+            </app-button>
+            <app-button routerLink="/category" *ngIf="lang == 'kaz'" [name]="'Каталог қарау'" [cat]="'pharm'" [type]="'secondary'">
+            </app-button>
+            <div [ngStyle]="{'display': 'grid', 'grid-template-columns': '1fr auto', 'grid-gap': '1rem'}">
+              <app-button (click)="toggleSidebar()" *ngIf="lang == 'rus'" [name]="'Сменить магазин'" [cat]="'pharm'" [type]="'primary'">
+              </app-button>
+              <app-button (click)="toggleSidebar()" *ngIf="lang == 'kaz'" [name]="'Дүкен ауыстыру'" [cat]="'pharm'" [type]="'primary'">
+              </app-button>
+              <div class="link-button" (click)="redirect()">
+                <app-svg [name]="'instagamButton'"></app-svg>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="title" *ngIf="lang == 'rus'">Акции и новости</div>
+        <div class="title" *ngIf="lang == 'kaz'"> Акция мен жаңалықтар</div>
+        <app-slider [mobile]="true"></app-slider>
+      </div>
+
+      <div *ngIf="cat != 'pharm'">
+        <div class="hh_inner">
+          <div class="hh_logo">
+            <!-- <app-svg [name]="'nazelMagazMobile'"></app-svg> -->
+            <div class="mobile-addlogo">
+              <app-svg [name]="'nazelMagazAddMobile'"></app-svg>
+            </div>
+          </div>
+          <div class="hh_buttons">
+            <app-button routerLink="/category" *ngIf="lang == 'rus'" [name]="'Смотреть каталог'" [cat]="'magaz'" [type]="'secondary'">
+            </app-button>
+            <app-button routerLink="/category" *ngIf="lang == 'kaz'" [name]="'Каталог қарау'" [cat]="'magaz'" [type]="'secondary'">
+            </app-button>
+            <div [ngStyle]="{'display': 'grid', 'grid-template-columns': '1fr auto', 'grid-gap': '1rem'}">
+              <app-button (click)="toggleSidebar()" *ngIf="lang == 'rus'" [name]="'Сменить магазин'" [cat]="'magaz'" [type]="'primary'">
+              </app-button>
+              <app-button (click)="toggleSidebar()" *ngIf="lang == 'kaz'" [name]="'Дүкен ауыстыру'" [cat]="'magaz'" [type]="'primary'">
+              </app-button>
+                <div class="link-button" (click)="redirect()">
+                <app-svg [name]="'instagamButton'"></app-svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="title" *ngIf="lang == 'rus'">Акции и новости</div>
+        <div class="title" *ngIf="lang == 'kaz'"> Акция мен жаңалықтар</div>
+        <app-slider [mobile]="true"></app-slider>
+
+      </div>
+      <div *ngIf="recentlyOrdered.length != 0 && lang == 'rus'" class="title" [@fadeIn]>Вы недавно заказывали</div>
+      <div *ngIf="recentlyOrdered.length != 0 && lang == 'kaz'" class="title" [@fadeIn]>Соңғы тапсырысыңыз</div>
+      <div *ngIf="recentlyOrdered.length != 0" class="mobile_recent-order__wrapper">  
+        <div class="mobile_recent-order">
+          <div *ngFor="let r of recentlyOrdered">
+            <div class="mobile_recent-order__item">
+              <app-product-card [product]="r" [type]="'def'" [@fadeIn]></app-product-card>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="title"*ngIf="lang == 'rus'">Как работает NAZEL</div>
+      <div class="title"*ngIf="lang == 'kaz'">NAZEL қалай жұмыс жасайды</div>
+      <div class="home__cards" *ngIf="cat != 'pharm'">
+        <div *ngFor="let c of cardsMagaz">
+          <div class="home__cards___item">
+            <div class="cards___item_text">
+              {{c.text}}
+              <div class="redirect" routerLink="/info/delivery-info"
+              [ngStyle]="{'color': 'blue', 'font-size': '14px'}"
+              *ngIf="lang == 'rus'">Узнать подробнее</div>
+              <div class="redirect" *ngIf="lang == 'kaz'" routerLink="/info/delivery-info"
+              [ngStyle]="{'color': 'blue', 'font-size': '14px'}">Нақтырақ көру</div>
+            </div>
+            <img src="{{c.img}}" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="home__cards" *ngIf="cat == 'pharm'">
+        <div *ngFor="let c of cardsPharm">
+          <div class="home__cards___item">
+            <div class="cards___item_text">
+              {{c.text}}
+              <div class="redirect" *ngIf="lang == 'rus'" routerLink="/info/delivery-info"
+              [ngStyle]="{'color': 'blue', 'font-size': '14px'}">Узнать подробнее</div>
+              <div class="redirect" *ngIf="lang == 'kaz'" routerLink="/info/delivery-info"
+              [ngStyle]="{'color': 'blue', 'font-size': '14px'}">Нақтырақ көру</div>
+            </div>
+            <img src="{{c.img}}" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <app-footer></app-footer> -->
+  </div>
+</div>
+<div *ngIf="!dataLoaded && mobile" class="ck">
+  <app-preloader></app-preloader>
+</div>
+<!-- --------------------------------------------------------- -->
+
+<div class="desk_home-wrapper" *ngIf="!mobile && dataLoaded">
+  <!-- <div class="desk-warning">
+    <span [ngStyle]="{'font-weight': 'bold'}">Внимание!</span>
+    Всвязи с временными ограничениями
+Мы принимаем заказы с 09:00 до 21:00
+  </div> -->
+  <div class="desk_home" [@fadeIn] [ngStyle]="{'margin-top': '0rem'}">
+      <div class="desk_home_header">
+        <div *ngIf="cat == 'pharm'">
+          <div class="desk_hh_inner">
+
+            <div class="desk_hh_logo">
+              <app-svg [name]="'nazelPharm'"></app-svg>
+              <app-svg [name]="'nazelPharmAdd'"></app-svg>
+            </div>
+            <div class="desk_hh_text">
+              Мы работаем без перерывов и выходных! У нас Вы найдете все необходимые Вам препараты, которые помогут в оздоровлении и восстановлении вашего здоровья! А наша служба доставки привезет все необходимое по указанному вами адресу.
+              <div class="desk_hh_button">
+                <app-button routerLink="/category" *ngIf="lang == 'rus'" [name]="'Смотреть каталог'" [cat]="'pharm'" [type]="'primary'">
+                </app-button>
+                <app-button routerLink="/category" *ngIf="lang == 'kaz'" [name]="'Каталог көру'" [cat]="'pharm'" [type]="'primary'">
+                </app-button>
+                <app-button (click)="toggleSidebar()" *ngIf="lang == 'rus'" [name]="'Сменить магазин'" [cat]="'pharm'" [type]="'secondary'">
+                </app-button>
+                <app-button (click)="toggleSidebar()" *ngIf="lang == 'kaz'" [name]="'Дүкен ауыстыру'" [cat]="'pharm'" [type]="'secondary'">
+                </app-button>
+                <div class="link-button" (click)="redirect()">
+                  <app-svg [name]="'instagamButton'"></app-svg>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <div class="desk_title" [@fadeIn] *ngIf="lang == 'rus'">Акции и новости</div>
+          <div class="desk_title" [@fadeIn] *ngIf="lang == 'kaz'">Акция мен жаңалықтар</div>
+          <app-slider></app-slider>
+        </div>
+          
+
+
+      <div *ngIf="cat != 'pharm'">
+        <div class="desk_hh_inner">
+
+          <div class="desk_hh_logo">
+            <app-svg [name]="'nazelMagaz'"></app-svg>
+            <app-svg [name]="'nazelMagazAdd'"></app-svg>
+          </div>
+          <div class="desk_hh_text">
+            Мы работаем без перерывов и выходных! У нас Вы найдете все необходимые Вам продукты! Заказы собирают профессиональные менеджеры, тщательно проверяя срок годности товара, целостность и внешний вид упаковки. А наша служба доставки привезет все необходимое по указанному вами адресу
+            <div class="desk_hh_button">
+              <app-button routerLink="/category" *ngIf="lang == 'rus'" [name]="'Смотреть каталог'" [cat]="'magaz'" [type]="'primary'">
+              </app-button>
+              <app-button routerLink="/category" *ngIf="lang == 'kaz'" [name]="'Каталог көру'" [cat]="'magaz'" [type]="'primary'">
+              </app-button>
+              <app-button (click)="toggleSidebar()" *ngIf="lang == 'rus'" [name]="'Сменить магазин'" [cat]="'magaz'" [type]="'secondary'">
+              </app-button>
+              <app-button (click)="toggleSidebar()" *ngIf="lang == 'kaz'" [name]="'Дүкен ауыстыру'" [cat]="'magaz'" [type]="'secondary'">
+              </app-button>
+            <div class="link-button" (click)="redirect()">
+                <app-svg [name]="'instagamButton'"></app-svg>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <div class="desk_title" [@fadeIn] *ngIf="lang == 'rus'">Акции и новости</div>
+        <div class="desk_title" [@fadeIn] *ngIf="lang == 'kaz'">Акция мен жаңалықтар</div>
+        <app-slider></app-slider>
+      </div>
+        <div *ngIf="recentlyOrdered.length != 0">  
+          <div class="desk_title" [@fadeIn] *ngIf="lang == 'rus'">Вы недавно заказывали</div>
+          <div class="desk_title" [@fadeIn] *ngIf="lang == 'kaz'">Соңғы тапсырысыңыз</div>
+          <div class="recent-order">
+            <div *ngFor="let r of recentlyOrdered">
+              <div [ngStyle]="{'border': '1px solid #dedede'}">
+                <app-product-card [type]="'def'" [product]="r" [@fadeIn]></app-product-card>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="desk_title" [@fadeIn] *ngIf="lang == 'rus'">Как работает NAZEL</div>
+        <div class="desk_title" [@fadeIn] *ngIf="lang == 'kaz'">NAZEL қалай жұмыс жасайды</div>
+      <div class="desk_home__cards" *ngIf="cat != 'pharm'">
+        <div *ngFor="let c of cardsMagaz">
+          <div class="desk_home__cards___item">
+            <!-- <div class="cards___item_title">{{c.title}}</div> -->
+            <div class="cards___item_text">
+              {{c.text}}
+              <div class="redirect" routerLink="/info/delivery-info"
+              [ngStyle]="{'color': 'blue', 'font-size': '14px'}" *ngIf="lang == 'rus'">Узнать подробнее</div>
+              <div class="redirect" *ngIf="lang == 'kaz'" routerLink="/info/delivery-info"
+              [ngStyle]="{'color': 'blue', 'font-size': '14px'}">Нақтырақ көру</div>
+            </div>
+            <div>
+              <img src="{{c.img}}" alt="">
+            </div>            
+          </div>
+        </div>
+      </div>
+
+      <div class="desk_home__cards" *ngIf="cat == 'pharm'">
+        <div *ngFor="let c of cardsPharm">
+          <div class="desk_home__cards___item">
+            <!-- <div class="cards___item_title">{{c.title}}</div> -->
+            <div class="cards___item_text">
+              {{c.text}}
+              <div class="redirect" routerLink="/info/delivery-info"
+              [ngStyle]="{'color': 'blue', 'font-size': '14px'}" *ngIf="lang == 'rus'">Узнать подробнее</div>
+              <div class="redirect" *ngIf="lang == 'kaz'" routerLink="/info/delivery-info"
+              [ngStyle]="{'color': 'blue', 'font-size': '14px'}">Нақтырақ көру</div>
+            </div>
+            <div>
+              <img src="{{c.img}}" alt="">
+            </div>            
+          </div>
+        </div>
+      </div>
+
+      <div class="mobile-promotion">
+        <div class="mobile-promotion_left">
+          <div class="desk_title" [@fadeIn] *ngIf="lang == 'rus'">Попробуйте, это удобно</div>
+          <div class="desk_title" [@fadeIn] *ngIf="lang == 'kaz'">Көріңіз, бұл ыңғайлы</div>
+          Каталог работает на любой платформе — на сайте, на Android и на iOS. Удобнее всего собирать корзину в мобильной версии: скидки и акции всегда под рукой.
+        </div>
+        <div class="mobile-promotion_right">
+          <img src="../../assets/img/iPhone.png" alt="">
+          <img src="../../assets/img/Galaxy.png" alt="">
+        </div>
+      </div>
+
+    </div>
+    <!-- <div class="home_popular" *ngIf="dataLoaded">
+      <div class="category-details">
+        <div class="desk_title" [@fadeIn]>Популярное</div>
+
+        <div *ngFor="let subcat of subcategories">
+          <div class="subcategory">
+            <div class="desk_subtitle-wrapper">
+              <div class="subtitle" [@fadeIn]>{{subcat}}</div>
+              <div *ngIf="cat == 'pharm'">
+                <div class="desk_see-all" [@fadeIn] (click)="onSee(subcat)" [ngStyle]="{'color': '#00BE04'}">Посмотреть
+                  все</div>
+              </div>
+              <div *ngIf="cat != 'pharm'">
+                <div class="desk_see-all" [@fadeIn] (click)="onSee(subcat)" [ngStyle]="{'color': 'red'}">Посмотреть все
+                </div>
+              </div>
+            </div>
+            <div class="desk_category-details_list">
+              <div *ngFor="let p of products">
+                <div *ngIf="p.subcategory == subcat">
+                  <div class="desk_category-details_list__item" [@fadeIn]>
+                    <app-product-card [product]="p"></app-product-card>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    
+
+    
+
+    <div class="home_info">
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<div *ngIf="!dataLoaded && !mobile" class="desk_ck">
+  <app-preloader></app-preloader>
+  <!-- <div class="ck_title"></div>
+  <div class="cd_sc__subtitle">
+    <div class="cd_sc__subtitle___left"></div>
+    <div *ngIf="cat != 'pharm'" class="cd_sc__subtitle___right" [ngStyle]="{'background': 'red'}"></div>
+    <div *ngIf="cat == 'pharm'" class="cd_sc__subtitle___right" [ngStyle]="{'background': '#00BE04'}"></div>
+  </div>
+
+  <div class="cd_sc__card">
+    <div class="desk_cd_cs__card___item">
+      <div class="item_button"></div>
+    </div>
+    <div class="desk_cd_cs__card___item">
+      <div class="item_button"></div>
+    </div>
+    <div class="desk_cd_cs__card___item">
+      <div class="item_button"></div>
+    </div>
+  </div>
+  <div class="cd_sc__subtitle">
+    <div class="cd_sc__subtitle___left"></div>
+    <div class="cd_sc__subtitle___right"></div>
+  </div>
+  <div class="cd_sc__card">
+    <div class="desk_cd_cs__card___item">
+      <div class="item_button"></div>
+    </div>
+    <div class="desk_cd_cs__card___item">
+      <div class="item_button"></div>
+    </div>
+    <div class="desk_cd_cs__card___item">
+      <div class="item_button"></div>
+    </div>
+    <div class="desk_cd_cs__card___item">
+      <div class="item_button"></div>
+    </div>
+    <div class="desk_cd_cs__card___item">
+      <div class="item_button"></div>
+    </div>
+  </div> -->
+</div>

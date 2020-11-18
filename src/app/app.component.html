@@ -1,0 +1,68 @@
+<div *ngIf="!inProgress">
+<app-prehome></app-prehome>
+
+<div *ngIf="mobile">
+  <div class="content" [@routeAnimations]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+
+
+  <div
+    *ngIf="path != 'login' && path != 'signup' && path != 'check' && path != 'admin' && path != 'prehome' && path != 'search'">
+    <app-navbar></app-navbar>
+  </div>
+  <app-footer *ngIf="path == 'home'"></app-footer>
+</div>
+<!-- ----------------------------------- -->
+<app-desk-navbar *ngIf="
+              !mobile &&
+              path != 'login' && 
+              path != 'signup' && 
+              path != 'search' && 
+              path != 'admin-panel' && 
+              path != 'orders' &&
+              path != 'categories' &&
+              path != 'subcategories' &&
+              path != 'products' &&
+              path != 'prehome'"></app-desk-navbar>
+<div *ngIf="!mobile">
+  
+  <div class="desk_content__wrapper">
+    <div class="desk_content" [@routeAnimations]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+  </div>
+
+
+  <app-footer *ngIf="
+  !mobile &&
+  path != 'login' && 
+  path != 'signup' && 
+  path != 'admin-panel' && 
+  path != 'orders' &&
+  path != 'categories' &&
+  path != 'subcategories' &&
+  path != 'products' &&
+  path != 'prehome'"></app-footer>
+
+</div>
+</div>
+<div class="progress" *ngIf="inProgress">
+  <div class="progress_inner">
+    <div>
+      <app-svg [name]="'inProgress'"></app-svg>
+    </div>
+    <div class="progress_inner__text">
+      <h3>Идут технические работы...</h3>
+      <p [ngStyle]="{'font-weight' : '500', 'color': '#6c6c6c', 'width': '80%'}">Но Вы можете сделать заказ, позвонив по номеру:</p>
+      <div class="phone_item">
+        <span [ngStyle]="{'font-size': '20px', 'font-weight': 'bold'}">+7(701)797-24-14</span>
+        <span [ngStyle]="{'font-size': '16px', 'font-weight': 'bold', 'color': '#FF0000'}">Мини-маркет</span>
+      </div>
+      <div class="phone_item">
+        <span [ngStyle]="{'font-size': '20px', 'font-weight': 'bold'}">+7(702)206-46-63</span>
+        <span [ngStyle]="{'font-size': '16px', 'font-weight': 'bold', 'color': '#00BE04'}">Аптека</span>
+      </div>
+    </div>
+  </div>
+</div>
